@@ -5,12 +5,14 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { createMuiTheme } from '@material-ui/core/styles';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import blue from '@material-ui/core/colors/blue';
 
 const the = createMuiTheme({
   palette: {
-    primary: blue,
+    primary: {
+      main: '#0678bc'
+    }
   },
 });
 
@@ -34,6 +36,7 @@ export default function SignIn() {
   const classes = useStyles();
 
   return (
+    <MuiThemeProvider theme={the}>
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
@@ -67,7 +70,7 @@ export default function SignIn() {
             type="submit"
             fullWidth
             variant="contained"
-            color="secondary"
+            color="primary"
             className={classes.submit}
           >
             Sign In
@@ -75,5 +78,6 @@ export default function SignIn() {
         </form>
       </div>
     </Container>
+    </MuiThemeProvider>
   );
 }
