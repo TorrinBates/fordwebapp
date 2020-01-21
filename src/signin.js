@@ -6,17 +6,19 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import blue from '@material-ui/core/colors/blue';
+import logo from './b.png';
+import {BrowserRouter as Router,Route,
+  Redirect,Switch} from 'react-router-dom';
 
-function Submit()
-{
-
-}
+  function onSubmit()
+  {
+    return  <Redirect  to="https://www.google.com/" />
+  }
 
 const the = createMuiTheme({
   palette: {
     primary: {
-      main: '#0678bc'
+      main: '#0055A5'
     }
   },
 });
@@ -40,13 +42,20 @@ const useStyles = makeStyles(theme => ({
 export default function SignIn() {
   const classes = useStyles();
 
+  onSubmit = () => {
+    return  <Redirect  to="/posts/" />
+  }
+
   return (
     <MuiThemeProvider theme={the}>
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
+        <img src={logo} width="300" height="239">
+
+        </img>
         <Typography component="h1" variant="h5">
-          Sign in
+          DB Editor Sign In
         </Typography>
         <form className={classes.form} noValidate>
           <TextField
@@ -72,7 +81,7 @@ export default function SignIn() {
             autoComplete="current-password"
           />
           <Button
-            onclick="Submit()"
+            onClick={onSubmit}
             type="submit"
             fullWidth
             variant="contained"
