@@ -1,16 +1,17 @@
 import React from 'react';
-import sigin from './signin';
 import './App.css';
 import SignIn from './signin';
-
+import LoggedIn from './loggedin';
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App">
-      <SignIn>
-        
-      </SignIn>
-    </div>
+    <Router>
+      <div className="App">
+          <Route path="/login" component={SignIn}/>
+          <Route path="/dashboard" component={LoggedIn}/>
+      </div>
+    </Router>
   );
 }
 

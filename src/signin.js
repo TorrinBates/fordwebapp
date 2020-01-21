@@ -42,10 +42,6 @@ const useStyles = makeStyles(theme => ({
 export default function SignIn() {
   const classes = useStyles();
 
-  onSubmit = () => {
-    return  <Redirect  to="/posts/" />
-  }
-
   return (
     <MuiThemeProvider theme={the}>
     <Container component="main" maxWidth="xs">
