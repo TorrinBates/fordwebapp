@@ -7,13 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import logo from './b.png';
-import {BrowserRouter as Router,Route,
-  Redirect,Switch} from 'react-router-dom';
-
-  function onSubmit()
-  {
-    return  <Redirect  to="https://www.google.com/" />
-  }
+import {useHistory, useLocation} from 'react-router-dom';
 
 const the = createMuiTheme({
   palette: {
@@ -41,6 +35,13 @@ const useStyles = makeStyles(theme => ({
 
 export default function SignIn() {
   const classes = useStyles();
+
+  let history = useHistory();
+  let location = useLocation();
+  let { from } = location.state || { from: { pathname: "/dashboard" } };
+  let login = () => {
+    history.replace(from);
+  };
 
   return (
     <MuiThemeProvider theme={the}>
@@ -77,7 +78,7 @@ export default function SignIn() {
             autoComplete="current-password"
           />
           <Button
-            onClick={onSubmit}
+            onClick={login}
             type="submit"
             fullWidth
             variant="contained"
