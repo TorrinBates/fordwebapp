@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import logo from './b.png';
-import {useHistory, useLocation} from 'react-router-dom';
+import { Auth } from 'aws-amplify';
 
 const the = createMuiTheme({
   palette: {
@@ -34,14 +34,20 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function SignIn() {
+  
   const classes = useStyles();
 
-  let history = useHistory();
-  let location = useLocation();
-  let { from } = location.state || { from: { pathname: "/dashboard" } };
-  let login = () => {
-    history.replace(from);
-  };
+  let login = async event => {
+		event.preventDefault();
+
+		try {
+			await Auth.signIn("Ford", "2020");
+			this.props.userHasAuthenticated(true);
+			this.props.history.push('/dashboard');
+		} catch (e) {
+			alert(e.message);
+		}
+	};
 
   return (
     <MuiThemeProvider theme={the}>
