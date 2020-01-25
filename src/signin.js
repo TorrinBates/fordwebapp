@@ -7,6 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import logo from './b.png';
+import {useHistory, useLocation} from 'react-router-dom';
 import { Auth } from 'aws-amplify';
 
 const the = createMuiTheme({
@@ -37,13 +38,15 @@ export default function SignIn() {
   
   const classes = useStyles();
 
+  let history = useHistory();
+  let location = useLocation();
+  let { from } = location.state || { from: { pathname: "/dashboard" } };
   let login = async event => {
 		event.preventDefault();
 
 		try {
-			await Auth.signIn("Ford", "2020");
-			this.props.userHasAuthenticated(true);
-			this.props.history.push('/dashboard');
+			await Auth.signIn("Torrin", "Passw1");
+			history.replace(from);
 		} catch (e) {
 			alert(e.message);
 		}
