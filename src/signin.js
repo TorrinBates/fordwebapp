@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -36,19 +36,30 @@ const useStyles = makeStyles(theme => ({
 
 export default function SignIn() {
   
+  let username = "abc";
+  let password = "123";
   const classes = useStyles();
 
   let history = useHistory();
   let location = useLocation();
   let { from } = location.state || { from: { pathname: "/dashboard" } };
+
+  let updateUser = (e) => {
+    username = e.target.value;
+  };
+
+  let updatePass = (e) => {
+    password = e.target.value;
+  };
+
   let login = async event => {
 		event.preventDefault();
 
 		try {
-			await Auth.signIn("Torrin", "Passw1");
+			await Auth.signIn(username, password);
 			history.replace(from);
 		} catch (e) {
-			alert(e.message);
+			alert("Incorrect username and password combination.");
 		}
 	};
 
@@ -73,6 +84,7 @@ export default function SignIn() {
             label="Username"
             name="username"
             autoComplete="username"
+            onChange={updateUser}
             autoFocus
           />
           <TextField
@@ -85,6 +97,7 @@ export default function SignIn() {
             type="password"
             id="password"
             autoComplete="current-password"
+            onChange={updatePass}
           />
           <Button
             onClick={login}
