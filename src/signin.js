@@ -9,6 +9,12 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import logo from './b.png';
 import {useHistory, useLocation} from 'react-router-dom';
 import { Auth } from 'aws-amplify';
+import MuiAlert from '@material-ui/lab/Alert';
+import Snackbar from '@material-ui/core/Snackbar';
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const the = createMuiTheme({
   palette: {
@@ -43,6 +49,7 @@ export default function SignIn() {
   let history = useHistory();
   let location = useLocation();
   let { from } = location.state || { from: { pathname: "/dashboard" } };
+  const [open, setOpen] = React.useState(false);
 
   let updateUser = (e) => {
     username = e.target.value;
@@ -59,12 +66,23 @@ export default function SignIn() {
 			await Auth.signIn(username, password);
 			history.replace(from);
 		} catch (e) {
-			alert("Incorrect username and password combination.");
+      setOpen(true);
 		}
-	};
+  };
+  
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
 
   return (
     <MuiThemeProvider theme={the}>
+    <Snackbar open={open} autoHideDuration={5000} onClose={handleClose} anchorOrigin={{vertical: 'top', horizontal: 'right'}} >
+      <Alert severity="error">Incorrect username and password combination.</Alert>
+    </Snackbar>
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
