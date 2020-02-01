@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -7,13 +7,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import logo from './b.png';
-import {useHistory, useLocation} from 'react-router-dom';
 import { Auth } from 'aws-amplify';
 import MuiAlert from '@material-ui/lab/Alert';
 import Snackbar from '@material-ui/core/Snackbar';
 
-function Alert(props) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
+function Alert(pprops) {
+  return <MuiAlert elevation={6} variant="filled" {...pprops} />;
 }
 
 const the = createMuiTheme({
@@ -40,15 +39,12 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function SignIn() {
+export default function SignIn(props) {
   
-  let username = "abc";
-  let password = "123";
+  let username = "";
+  let password = "";
   const classes = useStyles();
 
-  let history = useHistory();
-  let location = useLocation();
-  let { from } = location.state || { from: { pathname: "/dashboard" } };
   const [open, setOpen] = React.useState(false);
 
   let updateUser = (e) => {
@@ -63,9 +59,10 @@ export default function SignIn() {
 		event.preventDefault();
 
 		try {
-			await Auth.signIn(username, password);
-			history.replace(from);
+      await Auth.signIn(username, password);
+      props.userHasAuthenticated(true);
 		} catch (e) {
+      alert(e.message);
       setOpen(true);
 		}
   };

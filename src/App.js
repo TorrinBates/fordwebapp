@@ -1,15 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
-import SignIn from './signin';
-import LoggedIn from './loggedin';
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import {BrowserRouter as Router} from 'react-router-dom';
+import Routes from "./Routes";
+import { Auth } from 'aws-amplify';
 
 function App() {
+
+  const [isAuthenticated, userHasAuthenticated] = useState(false);
+
+  Auth.currentAuthenticatedUser({
+    bypassCache: false  // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
+  }).then(user => console.log(user))
+
   return (
     <Router>
       <div className="App">
-          <Route path="/login" component={SignIn}/>
-          <Route path="/dashboard" component={LoggedIn}/>
+        <div>
+          isA:    { isAuthenticated.toString() }
+        </div>
+        <Routes  appProps={{ isAuthenticated, userHasAuthenticated }}/>
       </div>
     </Router>
   );
