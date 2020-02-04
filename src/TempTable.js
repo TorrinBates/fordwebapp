@@ -7,6 +7,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import { Link } from "react-router-dom";
 
 const StyledTableCell = withStyles(theme => ({
   head: {
@@ -47,6 +48,12 @@ const useStyles = makeStyles({
   table: {
     minWidth: 700,
   },
+  tableRow: {
+    "&$hover:hover": {
+      backgroundColor: '#A9CCED'
+    }
+  },
+  hover: {}
 });
 
 export default function CustomizedTables() {
@@ -64,7 +71,8 @@ export default function CustomizedTables() {
         </TableHead>
         <TableBody>
           {rows.map(row => (
-            <StyledTableRow key={row.make}>
+            <StyledTableRow key={row.make} component={Link} to="/carinfo" hover               classes={{ hover: classes.hover }}
+              className={classes.tableRow}>
               <StyledTableCell component="th" scope="row">
                 {row.make}
               </StyledTableCell>

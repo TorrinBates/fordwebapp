@@ -58,7 +58,7 @@ export default function SignIn(props) {
 		event.preventDefault();
 
 		try {
-      await Auth.signIn(username, password);
+      await Auth.signIn(username, password)
       props.userHasAuthenticated(true);
 		} catch (e) {
       setOpen(true);
@@ -69,7 +69,6 @@ export default function SignIn(props) {
     if (reason === 'clickaway') {
       return;
     }
-
     setOpen(false);
   };
 
