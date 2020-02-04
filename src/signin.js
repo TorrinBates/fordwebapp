@@ -3,9 +3,8 @@ import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { MuiThemeProvider, createMuiTheme, makeStyles } from '@material-ui/core/styles';
 import logo from './b.png';
 import { Auth } from 'aws-amplify';
 import MuiAlert from '@material-ui/lab/Alert';
@@ -62,7 +61,6 @@ export default function SignIn(props) {
       await Auth.signIn(username, password);
       props.userHasAuthenticated(true);
 		} catch (e) {
-      alert(e.message);
       setOpen(true);
 		}
   };

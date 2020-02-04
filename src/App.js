@@ -15,9 +15,6 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <div>
-          isA:    { isAuthenticated.toString() }
-        </div>
         <Routes  appProps={{ isAuthenticated, userHasAuthenticated }}/>
       </div>
     </Router>
