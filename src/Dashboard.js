@@ -22,6 +22,12 @@ const dashStyles = makeStyles(theme => ({
   submit: {
     float: 'right',
     margin: theme.spacing(1, 1, 1, 1),
+    backgroundColor: '#FAFAFA',
+    color: '#0055A5',
+    '&:hover': {
+      backgroundColor: '#C91717',
+      color: '#FAFAFA'
+    }
   },
   header: {
     margin: theme.spacing(0, 1, 1, 1),
@@ -35,7 +41,7 @@ const dashStyles = makeStyles(theme => ({
   }
 }));
 
-export default function LoggedIn(props) {
+export default function Dashboard(props) {
 
   const classes = dashStyles();
 
@@ -53,22 +59,20 @@ export default function LoggedIn(props) {
     return (  
     <MuiThemeProvider theme={the}>
       <CssBaseline />   
-      <Grid>
-          <Button onClick={signout} type="submit" variant="outlined" color="primary" className={classes.submit}>
-            Sign Out
-          </Button>
-          <Typography align="left" variant="h3" className={classes.header}>
-            Add/Edit Cars
-          </Typography>
-          <Container className={classes.container} >
-            <Button variant="contained" color="primary" className={classes.Add}>
-              Add Car +
-            </Button>
-            <Table>
-
-            </Table>
-          </Container>
+      <Grid style={{backgroundColor: '#0055A5', color: 'white'}}>
+        <Button onClick={signout} type="submit" variant="outlined" className={classes.submit}>
+          Sign Out
+        </Button>
+        <Typography align="left" variant="h3" className={classes.header}>
+          Add/Edit Cars
+        </Typography>
       </Grid>
+      <Container className={classes.container} >
+        <Button variant="contained" color="primary" className={classes.Add}>
+          Add Car +
+        </Button>
+        <Table />
+      </Container>
     </MuiThemeProvider>
     );
 }

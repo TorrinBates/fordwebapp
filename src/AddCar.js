@@ -11,13 +11,12 @@ const the = createMuiTheme({
   },
 });
 
-export default function CarInfo(props) {
-    let carid = props.location.state.id;
+export default function AddCar() {
     return (  
     <MuiThemeProvider theme={the}>
       <CssBaseline />   
           <Typography align="left" variant="h3">
-            { carid }
+            Cool!
           </Typography>
     </MuiThemeProvider>
     );
