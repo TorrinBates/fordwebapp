@@ -12,9 +12,9 @@ export default function Routes({ appProps }) {
   return (
     <Switch>
         <UnauthenticatedRoute path="/login" component={SignIn} appProps={appProps}/>
-        <AuthenticatedRoute path="/dashboard" component={Dash} appProps={appProps}/>
-        <AuthenticatedRoute path="/carinfo" component={CarInfo} appProps={appProps}/>
-        <AuthenticatedRoute path="/addcar" component={AddCar} appProps={appProps}/>
+        <Route path="/dashboard" component={Dash} appProps={appProps}/>
+        <Route path="/carinfo" component={CarInfo} appProps={appProps}/>
+        <Route path="/addcar" component={AddCar} appProps={appProps}/>
         <Route component={PageNotFound} />
     </Switch>
   );
