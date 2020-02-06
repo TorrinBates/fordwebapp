@@ -71,7 +71,7 @@ export default function CustomizedTables() {
         </TableHead>
         <TableBody>
           {rows.map(row => (
-            <StyledTableRow key={row.make} component={Link}   to={{pathname: "/carinfo", state: { id: row.id }}} hover               
+            <StyledTableRow key={row.make} component={Link}   to={{pathname: "/carinfo", state: { id: row.id}}} hover               
               classes={{ hover: classes.hover }}
               className={classes.tableRow}>
               <StyledTableCell component="th" scope="row">

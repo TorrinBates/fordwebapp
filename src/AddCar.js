@@ -1,6 +1,7 @@
 import React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
+import Header from './Header';
 import Typography from '@material-ui/core/Typography';
 
 const the = createMuiTheme({
@@ -11,13 +12,14 @@ const the = createMuiTheme({
   },
 });
 
-export default function AddCar() {
+export default function AddCar(props) {
     return (  
     <MuiThemeProvider theme={the}>
       <CssBaseline />   
-          <Typography align="left" variant="h3">
+        <Header props={props} title="Add Car"/>
+        <Typography align="left" variant="h3">
             Cool!
-          </Typography>
+        </Typography>
     </MuiThemeProvider>
     );
 }
