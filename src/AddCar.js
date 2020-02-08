@@ -6,7 +6,7 @@ import { MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 import Header from './Header';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
 
 const the = createMuiTheme({
   palette: {
@@ -18,7 +18,24 @@ const the = createMuiTheme({
 
 export default function AddCar(props) {
 
+  let make = "";
+  let model = "";
+  let year = "";
+  let link = "";
   let history = useHistory();
+
+  let updateMake = (e) => {
+    make = e.target.value;
+  };
+  let updateModel = (e) => {
+    model = e.target.value;
+  };
+  let updateYear = (e) => {
+    year = e.target.value;
+  };
+  let updateLink = (e) => {
+    link = e.target.value;
+  };
   let home = () => {
     history.push("/dashboard");
   };
@@ -30,16 +47,18 @@ export default function AddCar(props) {
     <MuiThemeProvider theme={the}>
       <CssBaseline />   
         <Header props={props} title="Add Car"/>
+        <Container component="main" maxWidth="md">
         <form>
-          <TextField variant="outlined" margin="normal" required fullWidth id="make" label="Make"/>
-          <TextField variant="outlined" margin="normal" required fullWidth id="model" label="Model"/>
-          <TextField variant="outlined" margin="normal" required fullWidth id="year" label="Year"/>
-          <TextField variant="outlined" margin="normal" required fullWidth id="link" label="Owners Manual URL"/>
+          <TextField variant="outlined" margin="normal" required fullWidth id="make" label="Make" onChange={updateMake}/>
+          <TextField variant="outlined" margin="normal" required fullWidth id="model" label="Model" onChange={updateModel}/>
+          <TextField variant="outlined" margin="normal" required fullWidth id="year" label="Year" onChange={updateYear}/>
+          <TextField variant="outlined" margin="normal" required fullWidth id="link" label="Owners Manual URL" onChange={updateLink}/>
           <Box display="flex" flexDirection="row-reverse">
             <Button onClick={submit} variant="contained" color="primary">Submit</Button>
-            <Button variant="outlined" color="primary">Cancel</Button>
+            <Button onClick={home} variant="outlined" color="primary">Cancel</Button>
           </Box>
         </form>
+        </Container>
     </MuiThemeProvider>
     );
 }

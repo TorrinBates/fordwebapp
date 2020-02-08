@@ -12,7 +12,7 @@ import Box from '@material-ui/core/Box';
 
 const headerStyles = makeStyles(theme => ({
   submit: {
-    margin: theme.spacing(1.6, 1, 1, 1),
+    margin: theme.spacing(0, 1, 0, 0),
     backgroundColor: '#FAFAFA',
     color: '#0055A5',
     '&:hover': {
@@ -64,15 +64,15 @@ export default function Header(props) {
             {props.title}
             </Typography>
           </Box>
-          <Box>
-          <IconButton onClick={home} className={classes.home}>
-            <HomeIcon/>
-          </IconButton>
+          <Box alignSelf="center">
+            <IconButton onClick={home} className={classes.home} size='small'>
+              <HomeIcon/>
+            </IconButton>
           </Box>
-          <Box alignItems="center">
-          <Button onClick={signout} type="submit" variant="outlined" className={classes.submit}>
-            Sign Out
-          </Button>
+          <Box alignSelf="center">
+            <Button onClick={signout} type="submit" variant="outlined" className={classes.submit}>
+              Sign Out
+            </Button>
           </Box>
         </Box>
       </Grid>

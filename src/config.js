@@ -1,7 +1,7 @@
 export default {
 	apiGateway: {
-		REGION: 'YOUR_API_GATEWAY_REGION',
-		URL: 'YOUR_API_GATEWAY_URL'
+		REGION: 'us-east-2',
+		URL: 'https://pmd374kj6j.execute-api.us-east-2.amazonaws.com/prod/car?platform=web'
 	},
 	cognito: {
 		REGION: 'us-east-2',
