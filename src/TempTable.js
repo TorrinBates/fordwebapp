@@ -13,9 +13,10 @@ const StyledTableCell = withStyles(theme => ({
   head: {
     backgroundColor: '#0055A5',
     color: theme.palette.common.white,
+    fontSize: 24,
   },
   body: {
-    fontSize: 14,
+    fontSize: 22,
   },
 }))(TableCell);
 
@@ -51,7 +52,7 @@ export default function CustomizedTables() {
   let gettable = async event => {
     try {
       const proxyurl = "https://cors-anywhere.herokuapp.com/";
-      let response = await fetch(proxyurl+'https://pmd374kj6j.execute-api.us-east-2.amazonaws.com/prod/car?platform=web');
+      let response = await fetch('https://pmd374kj6j.execute-api.us-east-2.amazonaws.com/prod/car?platform=web');
       let responseJson = await response.json();
       console.log(responseJson)
       const trows = [];

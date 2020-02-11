@@ -22,6 +22,7 @@ const dashStyles = makeStyles(theme => ({
   Add: {
     float: 'right',
     margin: theme.spacing(1, 0, 1, 0),
+    fontSize: 22
   }
 }));
 
