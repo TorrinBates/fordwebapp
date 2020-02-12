@@ -41,17 +41,12 @@ export default function AddCar(props) {
     history.push("/dashboard");
   };
   let submit = () => {
-    Auth.currentSession().then(res=>{
-      let accessToken = res.getAccessToken()
-      let jwt = accessToken.getJwtToken()
-      
-      console.log(`myAccessToken: ${JSON.stringify(accessToken)}`)
-      console.log(jwt.toString())
+    Auth.currentSession().then(async res=>{
+      let idToken = res.getIdToken();
+      let jwt = idToken.getJwtToken();
+
       try {
-        const myHeaders = new Headers();
-        myHeaders.append('Authorization', jwt);
-        const proxyurl = "https://cors-anywhere.herokuapp.com/";
-        fetch('https://pmd374kj6j.execute-api.us-east-2.amazonaws.com/prod/car', {
+        await fetch('https://pmd374kj6j.execute-api.us-east-2.amazonaws.com/prod/car', {
           method: 'POST',
           headers: {
             'Authorization': jwt
@@ -63,6 +58,7 @@ export default function AddCar(props) {
             ownermanual: link
           })
         })
+        home();
       }
       catch(error) {
         alert(error.message);
