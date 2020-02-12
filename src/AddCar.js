@@ -7,6 +7,7 @@ import Header from './Header';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
+import { Auth } from 'aws-amplify';
 
 const the = createMuiTheme({
   palette: {
@@ -40,7 +41,33 @@ export default function AddCar(props) {
     history.push("/dashboard");
   };
   let submit = () => {
-    home();
+    Auth.currentSession().then(res=>{
+      let accessToken = res.getAccessToken()
+      let jwt = accessToken.getJwtToken()
+      
+      console.log(`myAccessToken: ${JSON.stringify(accessToken)}`)
+      console.log(jwt.toString())
+      try {
+        const myHeaders = new Headers();
+        myHeaders.append('Authorization', jwt);
+        const proxyurl = "https://cors-anywhere.herokuapp.com/";
+        fetch('https://pmd374kj6j.execute-api.us-east-2.amazonaws.com/prod/car', {
+          method: 'POST',
+          headers: {
+            'Authorization': jwt
+          },
+          body: JSON.stringify({
+            make: make,
+            model: model,
+            year: year,
+            ownermanual: link
+          })
+        })
+      }
+      catch(error) {
+        alert(error.message);
+      }
+    })
   };
 
     return (  

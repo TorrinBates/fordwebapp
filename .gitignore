@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+/src/FordWebApp.code-workspace
 /.pnp
 .pnp.js
 

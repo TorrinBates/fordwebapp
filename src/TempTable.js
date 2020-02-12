@@ -51,10 +51,8 @@ export default function CustomizedTables() {
   const [value, setValue] = useState(true); // integer state
   let gettable = async event => {
     try {
-      const proxyurl = "https://cors-anywhere.herokuapp.com/";
       let response = await fetch('https://pmd374kj6j.execute-api.us-east-2.amazonaws.com/prod/car?platform=web');
       let responseJson = await response.json();
-      console.log(responseJson)
       const trows = [];
       for (var car of responseJson) 
       {
