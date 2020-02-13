@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {useHistory} from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -19,6 +19,8 @@ const the = createMuiTheme({
 
 export default function AddCar(props) {
 
+  const [canClick, setCanClick] = useState(true);
+
   let make = "";
   let model = "";
   let year = "";
@@ -35,6 +37,10 @@ export default function AddCar(props) {
     year = e.target.value;
   };
   let updateLink = (e) => {
+    if(link != "")
+    {
+      setCanClick(false);
+    }
     link = e.target.value;
   };
   let home = () => {
@@ -45,24 +51,27 @@ export default function AddCar(props) {
       let idToken = res.getIdToken();
       let jwt = idToken.getJwtToken();
 
-      try {
-        await fetch('https://pmd374kj6j.execute-api.us-east-2.amazonaws.com/prod/car', {
-          method: 'POST',
-          headers: {
-            'Authorization': jwt
-          },
-          body: JSON.stringify({
-            make: make,
-            model: model,
-            year: year,
-            ownermanual: link
-          })
+      await fetch('https://pmd374kj6j.execute-api.us-east-2.amazonaws.com/prod/car', {
+        method: 'POST',
+        headers: {
+          'Authorization': jwt
+        },
+        body: JSON.stringify({
+          make: make,
+          model: model,
+          year: year,
+          ownermanual: link
         })
+      }).then(function(response) {
+        if (!response.ok) {
+            throw Error(response.statusText);
+        }
+        return response;
+      }).then(function(response) {
         home();
-      }
-      catch(error) {
+      }).catch(function(error) {
         alert(error.message);
-      }
+      });
     })
   };
 

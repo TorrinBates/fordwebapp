@@ -28,8 +28,8 @@ const StyledTableRow = withStyles(theme => ({
   },
 }))(TableRow);
 
-function createData(make, model, year, id) {
-  return { make, model, year, id};
+function createData(name, type, primarytag, secondarytag) {
+  return {name, type, primarytag, secondarytag};
 }
 
 var rows = [];
@@ -46,17 +46,17 @@ const useStyles = makeStyles({
   hover: {}
 });
 
-export default function CustomizedTables() {
+export default function MediaTable(props) {
   const classes = useStyles();
   const [value, setValue] = useState(true);
   let gettable = async event => {
     try {
-      let response = await fetch('https://pmd374kj6j.execute-api.us-east-2.amazonaws.com/prod/car?platform=web');
+      let response = await fetch('https://pmd374kj6j.execute-api.us-east-2.amazonaws.com/prod/car/media?carid='+props.carid.toString());
       let responseJson = await response.json();
       const trows = [];
-      for (var car of responseJson) 
+      for (var resource of responseJson) 
       {
-        trows.push(createData(car.make, car.model, car.year, car.carid));
+        trows.push(createData(resource.name, resource.type, resource.primarytag, resource.secondarytag, resource.mediaid));
       }
       rows = trows;
       setValue(false);
@@ -81,14 +81,14 @@ export default function CustomizedTables() {
         </TableHead>
         <TableBody>
           {rows.map(row => (
-            <StyledTableRow key={row.id} component={Link}   to={{pathname: "/carinfo", state: { id: row.id}}} hover               
+            <StyledTableRow key={row.mediaid} component={Link} hover               
               classes={{ hover: classes.hover }}
               className={classes.tableRow}>
               <StyledTableCell component="th" scope="row">
-                {row.make}
+                {row.name}
               </StyledTableCell>
-              <StyledTableCell align="center">{row.model}</StyledTableCell>
-              <StyledTableCell align="right">{row.year}</StyledTableCell>
+              <StyledTableCell align="center">{row.type}</StyledTableCell>
+              <StyledTableCell align="right">{row.primarytag}</StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>

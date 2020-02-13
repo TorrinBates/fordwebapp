@@ -3,6 +3,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Header from './Header';
+import MediaTable from './MediaTable'
 
 const the = createMuiTheme({
   palette: {
@@ -13,7 +14,6 @@ const the = createMuiTheme({
 });
 
 export default function CarInfo(props) {
-    console.log(props);
     return (  
     <MuiThemeProvider theme={the}>
       <CssBaseline />   
@@ -21,6 +21,7 @@ export default function CarInfo(props) {
       <Typography align="left" variant="h3">
         { props.location.state.id }
       </Typography>
+      <MediaTable carid={props.location.state.id}/>
     </MuiThemeProvider>
     );
 }
