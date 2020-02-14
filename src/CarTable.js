@@ -1,64 +1,25 @@
 import React, { useState } from 'react';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import { Link } from "react-router-dom";
+import Car from './Car'
+import Box from '@material-ui/core/Box';
 
-const StyledTableCell = withStyles(theme => ({
-  head: {
-    backgroundColor: '#0055A5',
-    color: theme.palette.common.white,
-    fontSize: 24,
-  },
-  body: {
-    fontSize: 22,
-  },
-}))(TableCell);
-
-const StyledTableRow = withStyles(theme => ({
-  root: {
-    '&:nth-of-type(odd)': {
-      backgroundColor: theme.palette.background.default,
-    },
-  },
-}))(TableRow);
-
-function createData(make, model, year, id) {
-  return { make, model, year, id};
+function createData(make, model, year, carid) {
+  return { make, model, year, carid};
 }
 
-var rows = [];
-
-const useStyles = makeStyles({
-  table: {
-    minWidth: 700,
-  },
-  tableRow: {
-    "&$hover:hover": {
-      backgroundColor: '#A9CCED'
-    }
-  },
-  hover: {}
-});
+var cars = [];
 
 export default function CustomizedTables() {
-  const classes = useStyles();
   const [value, setValue] = useState(true);
   let gettable = async event => {
     try {
       let response = await fetch('https://pmd374kj6j.execute-api.us-east-2.amazonaws.com/prod/car?platform=web');
       let responseJson = await response.json();
-      const trows = [];
+      const tcars = [];
       for (var car of responseJson) 
       {
-        trows.push(createData(car.make, car.model, car.year, car.carid));
+        tcars.push(createData(car.make, car.model, car.year, car.carid));
       }
-      rows = trows;
+      cars = tcars;
       setValue(false);
      } catch(error) {
       alert(error.message);
@@ -70,29 +31,8 @@ export default function CustomizedTables() {
   }
 
   return (
-    <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="customized table">
-        <TableHead>
-          <TableRow>
-            <StyledTableCell>Make</StyledTableCell>
-            <StyledTableCell align="center">Model&nbsp;</StyledTableCell>
-            <StyledTableCell align="right">Year&nbsp;</StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map(row => (
-            <StyledTableRow key={row.id} component={Link}   to={{pathname: "/carinfo", state: { id: row.id}}} hover               
-              classes={{ hover: classes.hover }}
-              className={classes.tableRow}>
-              <StyledTableCell component="th" scope="row">
-                {row.make}
-              </StyledTableCell>
-              <StyledTableCell align="center">{row.model}</StyledTableCell>
-              <StyledTableCell align="right">{row.year}</StyledTableCell>
-            </StyledTableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <Box>
+      {cars.map(c => <Car key={c.carid} make={c.make} model={c.model} year={c.year} carid={c.carid}/>)}
+    </Box>
   );
 }

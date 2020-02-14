@@ -3,7 +3,7 @@ import {useHistory} from 'react-router-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { MuiThemeProvider, createMuiTheme, makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import { Container } from '@material-ui/core';
+import Box from '@material-ui/core/Box';
 import Table from './CarTable'
 import Header from './Header';
 
@@ -16,13 +16,15 @@ const the = createMuiTheme({
 });
 
 const dashStyles = makeStyles(theme => ({
-  container: {
-    marginTop: theme.spacing(10)
+  Boxspacing: {
+    margin: theme.spacing(2, 7, 0, 7)
   },
   Add: {
-    float: 'right',
-    margin: theme.spacing(1, 0, 1, 0),
     fontSize: 22
+  },
+  Text: {
+    fontSize: 26,
+    color: '#0055A5'
   }
 }));
 
@@ -35,16 +37,24 @@ export default function Dashboard(props) {
     history.push("/addcar");
   };
 
-    return (  
+  return (  
     <MuiThemeProvider theme={the}>
       <CssBaseline />  
-      <Header props={props} title="Dashboard"/> 
-      <Container className={classes.container} >
-        <Button onClick={addcar} variant="contained" color="primary" className={classes.Add}>
-          Add Car +
-        </Button>
-        <Table />
-      </Container>
+      <Header props={props} title="Dashboard"/>
+      <Box display="flex" className={classes.Boxspacing}>
+        <Box alignSelf="center">
+          <b className={classes.Text}>
+            Currently Supported Vehicles
+          </b>
+        </Box>
+        <Box flexGrow={1}/>
+        <Box alignSelf="center">
+          <Button onClick={addcar} color="primary" className={classes.Add}>
+            + Add Vehicle
+          </Button>
+        </Box>
+      </Box>
+      <Table />
     </MuiThemeProvider>
-    );
+  );
 }

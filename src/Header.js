@@ -4,7 +4,6 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
 import { Auth } from 'aws-amplify';
 import HomeIcon from '@material-ui/icons/Home';
 import IconButton from '@material-ui/core/IconButton';
@@ -12,7 +11,7 @@ import Box from '@material-ui/core/Box';
 import logo from './Ford_logo_flat.svg';
 
 const headerStyles = makeStyles(theme => ({
-  submit: {
+  signout: {
     margin: theme.spacing(0, 1, 0, 0),
     backgroundColor: '#FAFAFA',
     color: '#0055A5',
@@ -22,7 +21,7 @@ const headerStyles = makeStyles(theme => ({
     }
   },
   logo: {
-    margin: theme.spacing(1, 1, 0, 1),
+    margin: theme.spacing(.6, 1, 0, 1),
   },
   home: {
     margin: theme.spacing(1, 1, 1, 1),
@@ -60,7 +59,7 @@ export default function Header(props) {
         <CssBaseline /> 
         <Box display="flex">
           <Box alignSelf="center" className={classes.logo}>
-            <img al src={logo} width="197.8" hieght="75.9"/>
+            <img al src={logo} width="197.8" hieght="75.9" alt="Ford logo"/>
           </Box>
           <Box flexGrow={1}/>
           <Box alignSelf="center">
@@ -69,7 +68,7 @@ export default function Header(props) {
             </IconButton>
           </Box>
           <Box alignSelf="center">
-            <Button onClick={signout} type="submit" variant="outlined" className={classes.submit}>
+            <Button onClick={signout} type="submit" variant="outlined" className={classes.signout}>
               Sign Out
             </Button>
           </Box>
