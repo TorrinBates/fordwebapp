@@ -7,7 +7,8 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import { Link } from "react-router-dom";
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const StyledTableCell = withStyles(theme => ({
   head: {
@@ -70,25 +71,32 @@ export default function MediaTable(props) {
   }
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} >
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>Make</StyledTableCell>
-            <StyledTableCell align="center">Model&nbsp;</StyledTableCell>
-            <StyledTableCell align="right">Year&nbsp;</StyledTableCell>
+            <StyledTableCell>Media</StyledTableCell>
+            <StyledTableCell align="center">Type&nbsp;</StyledTableCell>
+            <StyledTableCell align="center">Primary Tag&nbsp;</StyledTableCell>
+            <StyledTableCell align="center">Secondary Tag&nbsp;</StyledTableCell>
+            <StyledTableCell/>
           </TableRow>
         </TableHead>
         <TableBody>
           {rows.map(row => (
-            <StyledTableRow key={row.mediaid} component={Link} hover               
-              classes={{ hover: classes.hover }}
+            <StyledTableRow key={row.mediaid}
               className={classes.tableRow}>
               <StyledTableCell component="th" scope="row">
                 {row.name}
               </StyledTableCell>
               <StyledTableCell align="center">{row.type}</StyledTableCell>
-              <StyledTableCell align="right">{row.primarytag}</StyledTableCell>
+              <StyledTableCell align="center">{row.primarytag}</StyledTableCell>
+              <StyledTableCell align="center">{row.secondarytag}</StyledTableCell>
+              <StyledTableCell>
+                <IconButton>
+                  <DeleteIcon/>
+                </IconButton>
+              </StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>

@@ -21,11 +21,6 @@ const dashStyles = makeStyles(theme => ({
     marginRight: theme.spacing(17),
     marginLeft: theme.spacing(17)
   },
-  Add: {
-    float: 'right',
-    margin: theme.spacing(1, 0, 1, 0),
-    fontSize: 22
-  }
 }));
 
 export default function CarInfo(props) {
@@ -39,12 +34,9 @@ export default function CarInfo(props) {
     return (  
     <MuiThemeProvider theme={the}>
       <CssBaseline />   
-      <Header props={props} title="Manage Media"/>
+      <Header props={props} title="Add Media"/>
       <Grid className={classes.container}>
-        <Button onClick={AddMedia} variant="contained" color="primary" className={classes.Add}>
-          Add Media +
-        </Button>
-        <MediaTable carid={props.location.state.id}/>
+
       </Grid>
     </MuiThemeProvider>
     );

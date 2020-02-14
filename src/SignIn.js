@@ -80,9 +80,7 @@ export default function SignIn(props) {
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        <img src={logo} width="300" height="239">
-
-        </img>
+        <img src={logo} width="300" height="239"/>
         <Typography component="h1" variant="h5">
           DB Editor Sign In
         </Typography>

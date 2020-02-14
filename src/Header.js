@@ -9,6 +9,7 @@ import { Auth } from 'aws-amplify';
 import HomeIcon from '@material-ui/icons/Home';
 import IconButton from '@material-ui/core/IconButton';
 import Box from '@material-ui/core/Box';
+import logo from './Ford_logo_flat.svg';
 
 const headerStyles = makeStyles(theme => ({
   submit: {
@@ -20,9 +21,8 @@ const headerStyles = makeStyles(theme => ({
       color: '#FAFAFA'
     }
   },
-  header: {
-    flex: 'left',
-    margin: theme.spacing(0, 0, 0, 1),
+  logo: {
+    margin: theme.spacing(1, 1, 0, 1),
   },
   home: {
     margin: theme.spacing(1, 1, 1, 1),
@@ -59,13 +59,12 @@ export default function Header(props) {
       <Grid style={{backgroundColor: '#0055A5', color: 'white'}} >
         <CssBaseline /> 
         <Box display="flex">
-          <Box flexGrow={1}>
-            <Typography align="left" variant="h3" className={classes.header}>
-            {props.title}
-            </Typography>
+          <Box alignSelf="center" className={classes.logo}>
+            <img al src={logo} width="197.8" hieght="75.9"/>
           </Box>
+          <Box flexGrow={1}/>
           <Box alignSelf="center">
-            <IconButton onClick={home} className={classes.home} size='small'>
+            <IconButton onClick={home} className={classes.home} size='medium'>
               <HomeIcon/>
             </IconButton>
           </Box>
