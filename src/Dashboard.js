@@ -4,7 +4,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { MuiThemeProvider, createMuiTheme, makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import { Container } from '@material-ui/core';
-import Table from './TempTable'
+import Table from './CarTable'
 import Header from './Header';
 
 const the = createMuiTheme({
