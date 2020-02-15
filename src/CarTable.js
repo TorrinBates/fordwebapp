@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import Car from './Car'
 import Box from '@material-ui/core/Box';
 
-function createData(make, model, year, carid) {
-  return { make, model, year, carid};
+function createData(make, model, year, carid, icon) {
+  return { make, model, year, carid, icon};
 }
 
 var cars = [];
@@ -17,7 +17,7 @@ export default function CustomizedTables() {
       const tcars = [];
       for (var car of responseJson) 
       {
-        tcars.push(createData(car.make, car.model, car.year, car.carid));
+        tcars.push(createData(car.make, car.model, car.year, car.carid, car.icon));
       }
       cars = tcars;
       setValue(false);
@@ -32,7 +32,7 @@ export default function CustomizedTables() {
 
   return (
     <Box>
-      {cars.map(c => <Car key={c.carid} make={c.make} model={c.model} year={c.year} carid={c.carid}/>)}
+      {cars.map(c => <Car key={c.carid} make={c.make} model={c.model} year={c.year} carid={c.carid} icon={c.icon}/>)}
     </Box>
   );
 }

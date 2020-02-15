@@ -24,7 +24,6 @@ const dashStyles = makeStyles(theme => ({
   },
   Text: {
     fontSize: 26,
-    color: '#0055A5'
   }
 }));
 
