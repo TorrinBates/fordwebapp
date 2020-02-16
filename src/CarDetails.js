@@ -33,10 +33,10 @@ export default function CarInfo(props) {
 
   let history = useHistory();
   let AddMedia = () => {
-    history.push("/addmedia");
+    history.push({pathname: '/addmedia', state: { carid: props.location.state.carid }});
   };
 
-    return (  
+  return (  
     <MuiThemeProvider theme={the}>
       <CssBaseline />   
       <Header props={props} title="Manage Media"/>
@@ -44,8 +44,8 @@ export default function CarInfo(props) {
         <Button onClick={AddMedia} variant="contained" color="primary" className={classes.Add}>
           Add Media +
         </Button>
-        <MediaTable carid={props.location.state.id}/>
+        <MediaTable carid={props.location.state.carid}/>
       </Grid>
     </MuiThemeProvider>
-    );
+  );
 }

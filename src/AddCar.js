@@ -75,22 +75,22 @@ export default function AddCar(props) {
     })
   };
 
-    return (  
+  return (  
     <MuiThemeProvider theme={the}>
       <CssBaseline />   
         <Header props={props} title="Add Car"/>
         <Container component="main" maxWidth="md">
-        <form>
-          <TextField variant="outlined" margin="normal" required fullWidth id="make" label="Make" onChange={updateMake}/>
-          <TextField variant="outlined" margin="normal" required fullWidth id="model" label="Model" onChange={updateModel}/>
-          <TextField variant="outlined" margin="normal" required fullWidth id="year" label="Year" onChange={updateYear}/>
-          <TextField variant="outlined" margin="normal" required fullWidth id="link" label="Owners Manual URL" onChange={updateLink}/>
-          <Box display="flex" flexDirection="row-reverse">
-            <Button onClick={submit} variant="contained" color="primary">Submit</Button>
-            <Button onClick={home} variant="outlined" color="primary">Cancel</Button>
-          </Box>
-        </form>
+          <form>
+            <TextField variant="outlined" margin="normal" required fullWidth id="make" label="Make" onChange={updateMake}/>
+            <TextField variant="outlined" margin="normal" required fullWidth id="model" label="Model" onChange={updateModel}/>
+            <TextField variant="outlined" margin="normal" required fullWidth id="year" label="Year" onChange={updateYear}/>
+            <TextField variant="outlined" margin="normal" required fullWidth id="link" label="Owners Manual URL" onChange={updateLink}/>
+            <Box display="flex" flexDirection="row-reverse">
+              <Button onClick={submit} variant="contained" color="primary">Submit</Button>
+              <Button onClick={home} variant="outlined" color="primary">Cancel</Button>
+            </Box>
+          </form>
         </Container>
     </MuiThemeProvider>
-    );
+  );
 }

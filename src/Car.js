@@ -33,10 +33,9 @@ const useStyles = makeStyles( theme => ({
 
 export default function Contact(props) {
     const classes = useStyles();
-    console.log(props);
     return (
-    <Box hover classes={{ hover: classes.hover }} className={classes.CarDiv} >
-        <Link className={classes.CarLink} to={{pathname: "/carinfo", state: { id: props.carid }}}>
+    <Box classes={{ hover: classes.hover }} className={classes.CarDiv} >
+        <Link className={classes.CarLink} to={{pathname: "/carinfo", state: { carid: props.carid }}}>
             <Box display="flex">
                 <Box alignSelf="center" className={classes.CarImageBox}>
                     <img src={props.icon} alt="the car we are representing."/>

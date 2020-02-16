@@ -8,7 +8,7 @@ function createData(make, model, year, carid, icon) {
 
 var cars = [];
 
-export default function CustomizedTables() {
+export default function CarTable() {
   const [value, setValue] = useState(true);
   let gettable = async event => {
     try {
@@ -21,9 +21,8 @@ export default function CustomizedTables() {
       }
       cars = tcars;
       setValue(false);
-     } catch(error) {
-      alert(error.message);
-    }
+     }
+    catch(error) {}
   }
   if (value)
   {
