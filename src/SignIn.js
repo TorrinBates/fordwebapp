@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -40,18 +40,18 @@ const useStyles = makeStyles(theme => ({
 
 export default function SignIn(props) {
   
-  let username = "";
-  let password = "";
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const classes = useStyles();
 
   const [open, setOpen] = React.useState(false);
 
   let updateUser = (e) => {
-    username = e.target.value;
+    setUsername(e.target.value);
   };
 
   let updatePass = (e) => {
-    password = e.target.value;
+    setPassword(e.target.value);
   };
 
   let login = async event => {

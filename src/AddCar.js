@@ -19,29 +19,29 @@ const the = createMuiTheme({
 
 export default function AddCar(props) {
 
-  const [canClick, setCanClick] = useState(true);
+  //const [canClick, setCanClick] = useState(true);
 
-  let make = "";
-  let model = "";
-  let year = "";
-  let link = "";
+  const [make, setMake] = useState("");
+  const [model, setModel] = useState("");
+  const [year, setYear] = useState("");
+  const [link, setLink] = useState("");
   let history = useHistory();
 
   let updateMake = (e) => {
-    make = e.target.value;
+    setMake(e.target.value);
   };
   let updateModel = (e) => {
-    model = e.target.value;
+    setModel(e.target.value);
   };
   let updateYear = (e) => {
-    year = e.target.value;
+    setYear(e.target.value);
   };
   let updateLink = (e) => {
-    if(link != "")
-    {
-      setCanClick(false);
-    }
-    link = e.target.value;
+    //if(link != "")
+    //{
+    //  setCanClick(false);
+    //}
+    setLink(e.target.value);
   };
   let home = () => {
     history.push("/dashboard");

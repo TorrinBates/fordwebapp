@@ -4,6 +4,7 @@ import {useHistory} from 'react-router-dom';
 import { MuiThemeProvider, createMuiTheme, makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Header from './Header';
+import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import Select from 'react-select';
 import { Auth } from 'aws-amplify';
@@ -19,7 +20,7 @@ const the = createMuiTheme({
 const customStyles = {
   control: (base, state) => ({
     ...base,
-    boxShadow: state.isFocused ? "0 0 0 0.09rem #0055A5" : 0,
+    boxShadow: state.isFocused ? "0 0 0 0.08rem #0055A5" : 0,
     borderColor: state.isFocused ? '#0055A5' : base.borderColor,
     '&:hover': {
       borderColor: state.isFocused ? '#0055A5' : base.borderColor,
@@ -30,11 +31,25 @@ const customStyles = {
 const mediaStyles = makeStyles(theme => ({
   Boxspacing: {
     marginTop: theme.spacing(3),
-    marginLeft: theme.spacing(4)
+    marginLeft: theme.spacing(10),
+    marginRight: theme.spacing(10)
   },
   Text: {
     fontSize: 26,
-  }
+  },
+  Dropdown: {
+    marginBottom: theme.spacing(2)
+  },
+  SecondTextField: {
+    marginBottom: theme.spacing(2),
+    marginTop: theme.spacing(2),
+  },
+  SelectText: {
+    fontSize: 17,
+  },
+  Submit: {
+    paddingLeft: theme.spacing(1)
+  },
 }));
 
 function createData(label, value) {
@@ -52,12 +67,22 @@ export default function AddMedia(props) {
   const [value, setValue] = useState(true);
   const [primaryId, setPrimaryId] = useState(null);
   const [secondaryId, setSecondaryId] = useState(null);
+  const [type, setType] = useState(null);
+  const [medialabel, setMediaLabel] = useState("");
+  const [link, setLink] = useState("");
   let history = useHistory();
+
+  let updateMediaLabel = (e) => {
+    setMediaLabel(e.target.value);
+  };
+  let updateLink = (e) => {
+    setLink(e.target.value);
+  };
 
   let backMedia = () => {
     history.goBack();
   }
-  let gettable = async event => {
+  let gettags = async event => {
     try {
       let response = await fetch('https://pmd374kj6j.execute-api.us-east-2.amazonaws.com/prod/car/tag?carid='+props.location.state.carid.toString());
       let responseJson = await response.json();
@@ -87,9 +112,9 @@ export default function AddMedia(props) {
   }
   if (value)
   {
-    gettable();
+    gettags();
   }
-  let select = (opt) => {
+  let selectPrimary = (opt) => {
     setPrimaryId(opt);
     if (opt != null)
     {
@@ -101,20 +126,29 @@ export default function AddMedia(props) {
     }
     setSecondaryId(null);
   }
-  let select2 = (opt) => {
+  let selectSecondary = (opt) => {
     setSecondaryId(opt);
+  }
+  let selectType = (opt) => {
+    setType(opt);
   }
   let submit = () => {
     Auth.currentSession().then(async res=>{
       let idToken = res.getIdToken();
       let jwt = idToken.getJwtToken();
 
-      await fetch('https://pmd374kj6j.execute-api.us-east-2.amazonaws.com/prod/car', {
+      await fetch('https://pmd374kj6j.execute-api.us-east-2.amazonaws.com/prod/car/media', {
         method: 'POST',
         headers: {
           'Authorization': jwt
         },
         body: JSON.stringify({
+          carId: props.location.state.carid,
+          name: medialabel,
+          type: type.label,
+          link: link,
+          primaryTag: primaryId.value,
+          secondaryTag: secondaryId == null ? null : secondaryId.value
         })
       }).then(function(response) {
         if (!response.ok) { throw Error(response.statusText); }
@@ -132,19 +166,19 @@ export default function AddMedia(props) {
       <CssBaseline />   
       <Header props={props} title="Add Media"/>
       <Box className={classes.Boxspacing}>
-        <b className={classes.Text}>
-          Add Media
-        </b>
+        <b className={classes.Text}>Add Media</b>
         <form>
-          <Box>
-
-            <Select options={mediaOptions} styles={customStyles}/>
-          </Box>
-          <Select options={primarytags} onChange={opt => select(opt)} value={primaryId} isClearable={true} styles={customStyles}/>
-          <Select options={secondarytags} onChange={opt => select2(opt)} value={secondaryId} isClearable={true} styles={customStyles}/>
+          <TextField variant="outlined" margin="normal" required fullWidth id="medialabel" label="Media Label" name="medialabel" autoComplete="medialabel" onChange={updateMediaLabel}/>
+          <TextField variant="outlined" className={classes.SecondTextField} required fullWidth id="link" label="Media URL" name="link" autoComplete="link" onChange={updateLink}/>
+          <b className={classes.SelectText}>Type</b>
+          <Select options={mediaOptions} onChange={opt => selectType(opt)} value={type} isClearable={true} styles={customStyles} className={classes.Dropdown}/>
+          <b className={classes.SelectText}>Primary Tag</b>
+          <Select options={primarytags} onChange={opt => selectPrimary(opt)} value={primaryId} isClearable={true} styles={customStyles} className={classes.Dropdown}/>
+          <b className={classes.SelectText}>Secondary Tag</b>
+          <Select options={secondarytags} onChange={opt => selectSecondary(opt)} value={secondaryId} isClearable={true} styles={customStyles} className={classes.Dropdown}/>
           <Box display="flex" flexDirection="row-reverse">
-            <Button variant="contained" color="primary">Submit</Button>
-            <Button onClick={backMedia} variant="outlined" color="primary">Cancel</Button>
+            <Button onClick={submit} variant="contained" color="primary">Submit</Button>
+            <Button className={classes.Submit} onClick={backMedia} variant="outlined" color="primary">Cancel</Button>
           </Box>
         </form>
       </Box>

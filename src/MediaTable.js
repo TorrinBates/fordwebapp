@@ -9,6 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
+import { Auth } from 'aws-amplify';
 
 const StyledTableCell = withStyles(theme => ({
   head: {
@@ -29,8 +30,8 @@ const StyledTableRow = withStyles(theme => ({
   },
 }))(TableRow);
 
-function createData(name, type, primarytag, secondarytag) {
-  return {name, type, primarytag, secondarytag};
+function createData(name, type, primarytagname, secondarytagname, mediaid) {
+  return {name, type, primarytagname, secondarytagname, mediaid};
 }
 
 var rows = [];
@@ -52,18 +53,38 @@ export default function MediaTable(props) {
   const [value, setValue] = useState(true);
   let gettable = async event => {
     try {
-      let response = await fetch('https://pmd374kj6j.execute-api.us-east-2.amazonaws.com/prod/car/media?carid='+props.carid.toString());
+      let response = await fetch('https://pmd374kj6j.execute-api.us-east-2.amazonaws.com/prod/car/media?tagnames=true&carid='+props.carid.toString());
       let responseJson = await response.json();
       const trows = [];
       for (var resource of responseJson) 
       {
-        trows.push(createData(resource.name, resource.type, resource.primarytag, resource.secondarytag, resource.mediaid));
+        trows.push(createData(resource.name, resource.type, resource.primarytagname, resource.secondarytagname, resource.mediaid));
       }
       rows = trows;
       setValue(false);
      } catch(error) {
       alert(error.message);
     }
+  }
+  let deleteMedia = (id) => {
+    Auth.currentSession().then(async res=>{
+      let idToken = res.getIdToken();
+      let jwt = idToken.getJwtToken();
+
+      await fetch('https://pmd374kj6j.execute-api.us-east-2.amazonaws.com/prod/media?mediaid='+id.toString(), {
+        method: 'DELETE',
+        headers: {
+          'Authorization': jwt
+        },
+      }).then(function(response) {
+        if (!response.ok) { throw Error(response.statusText); }
+        return response;
+      }).then(function(response) {
+        setValue(true);
+      }).catch(function(error) {
+        alert(error.message);
+      });
+    })
   }
   if (value)
   {
@@ -90,10 +111,10 @@ export default function MediaTable(props) {
                 {row.name}
               </StyledTableCell>
               <StyledTableCell align="center">{row.type}</StyledTableCell>
-              <StyledTableCell align="center">{row.primarytag}</StyledTableCell>
-              <StyledTableCell align="center">{row.secondarytag}</StyledTableCell>
+              <StyledTableCell align="center">{row.primarytagname}</StyledTableCell>
+              <StyledTableCell align="center">{row.secondarytagname}</StyledTableCell>
               <StyledTableCell>
-                <IconButton>
+                <IconButton onClick={() => { deleteMedia(row.mediaid); }}>
                   <DeleteIcon/>
                 </IconButton>
               </StyledTableCell>
