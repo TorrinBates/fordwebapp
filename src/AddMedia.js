@@ -47,9 +47,6 @@ const mediaStyles = makeStyles(theme => ({
   SelectText: {
     fontSize: 17,
   },
-  Submit: {
-    paddingLeft: theme.spacing(1)
-  },
 }));
 
 function createData(label, value) {
@@ -178,7 +175,7 @@ export default function AddMedia(props) {
           <Select options={secondarytags} onChange={opt => selectSecondary(opt)} value={secondaryId} isClearable={true} styles={customStyles} className={classes.Dropdown}/>
           <Box display="flex" flexDirection="row-reverse">
             <Button onClick={submit} variant="contained" color="primary">Submit</Button>
-            <Button className={classes.Submit} onClick={backMedia} variant="outlined" color="primary">Cancel</Button>
+            <Button onClick={backMedia} variant="outlined" color="primary">Cancel</Button>
           </Box>
         </form>
       </Box>
