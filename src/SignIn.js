@@ -5,7 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { MuiThemeProvider, createMuiTheme, makeStyles } from '@material-ui/core/styles';
-import logo from './b.png';
+import logo from './Ford_logo_flat.svg';
 import { Auth } from 'aws-amplify';
 import MuiAlert from '@material-ui/lab/Alert';
 import Snackbar from '@material-ui/core/Snackbar';
@@ -80,7 +80,7 @@ export default function SignIn(props) {
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        <img src={logo} width="300" height="239" alt="Ford logo"/>
+        <img src={logo} width="300" height="115" alt="Ford logo"/>
         <Typography component="h1" variant="h5">
           DB Editor Sign In
         </Typography>

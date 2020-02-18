@@ -16,10 +16,11 @@ const the = createMuiTheme({
     }
   },
 });
+var valid = {"Make": false, "Model": false, "Year": false, "Link": false}
 
 export default function AddCar(props) {
 
-  //const [canClick, setCanClick] = useState(true);
+  const [disabled, setDisabled] = useState(true);
 
   const [make, setMake] = useState("");
   const [model, setModel] = useState("");
@@ -27,21 +28,46 @@ export default function AddCar(props) {
   const [link, setLink] = useState("");
   let history = useHistory();
 
+  let checkComplete = (dic) => {
+    var key = Object.keys(dic)[0];
+    if (dic[key] != "")
+    {
+      valid[key] = true;
+    }
+    else
+    {
+      valid[key] = false;
+    }
+
+    if (valid["Make"] && valid["Model"] && valid["Year"] && valid["Link"])
+    {
+      setDisabled(false);
+    }
+    else 
+    {
+      setDisabled(true);
+    }
+    console.log(valid);
+  };
   let updateMake = (e) => {
-    setMake(e.target.value);
+    var value = e.target.value;
+    setMake(value);
+    checkComplete({"Make": value});
   };
   let updateModel = (e) => {
-    setModel(e.target.value);
+    var value = e.target.value;
+    setModel(value);
+    checkComplete({"Model": value});
   };
   let updateYear = (e) => {
-    setYear(e.target.value);
+    var value = e.target.value;
+    setYear(value);
+    checkComplete({"Year": value});
   };
   let updateLink = (e) => {
-    //if(link != "")
-    //{
-    //  setCanClick(false);
-    //}
-    setLink(e.target.value);
+    var value = e.target.value;
+    setLink(value);
+    checkComplete({"Link": value});
   };
   let home = () => {
     history.push("/dashboard");
@@ -86,7 +112,7 @@ export default function AddCar(props) {
             <TextField variant="outlined" margin="normal" required fullWidth id="year" label="Year" onChange={updateYear}/>
             <TextField variant="outlined" margin="normal" required fullWidth id="link" label="Owners Manual URL" onChange={updateLink}/>
             <Box display="flex" flexDirection="row-reverse">
-              <Button onClick={submit} variant="contained" color="primary">Submit</Button>
+              <Button disabled={disabled} onClick={submit} variant="contained" color="primary">Submit</Button>
               <Button onClick={home} variant="outlined" color="primary">Cancel</Button>
             </Box>
           </form>
