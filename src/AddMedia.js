@@ -86,7 +86,7 @@ export default function AddMedia(props) {
       const ptags = [];
       for (var tag of responseJson) 
       {
-        if (tag.primarytag == true)
+        if (tag.primarytag === true)
         {
           ptags.push(createData(tag.name, tag.tagid));
         }

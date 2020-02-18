@@ -16,7 +16,15 @@ const the = createMuiTheme({
     }
   },
 });
+
 var valid = {"Make": false, "Model": false, "Year": false, "Link": false}
+
+function resetDict() {
+  for (const prop in valid)
+  {
+    valid[prop] = false;
+  }
+}
 
 export default function AddCar(props) {
 
@@ -30,7 +38,7 @@ export default function AddCar(props) {
 
   let checkComplete = (dic) => {
     var key = Object.keys(dic)[0];
-    if (dic[key] != "")
+    if (dic[key] !== "")
     {
       valid[key] = true;
     }
@@ -47,7 +55,6 @@ export default function AddCar(props) {
     {
       setDisabled(true);
     }
-    console.log(valid);
   };
   let updateMake = (e) => {
     var value = e.target.value;
@@ -70,6 +77,7 @@ export default function AddCar(props) {
     checkComplete({"Link": value});
   };
   let home = () => {
+    resetDict();
     history.push("/dashboard");
   };
   let submit = () => {
