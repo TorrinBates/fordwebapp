@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import {useHistory} from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
+import { MuiThemeProvider, createMuiTheme, makeStyles } from '@material-ui/core/styles';
 import Header from './Header';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import { Auth } from 'aws-amplify';
+import BlockLoading from './BlockLoading';
 
 const the = createMuiTheme({
   palette: {
@@ -16,6 +17,13 @@ const the = createMuiTheme({
     }
   },
 });
+
+const addCarStyles = makeStyles(theme => ({
+  Loading: {
+    backgroundColor: '#0055A5',
+    color: '#eb4034',
+  },
+}));
 
 var valid = {"Make": false, "Model": false, "Year": false, "Link": false}
 
@@ -28,6 +36,7 @@ function resetDict() {
 
 export default function AddCar(props) {
 
+  const classes = addCarStyles();
   const [disabled, setDisabled] = useState(true);
 
   const [make, setMake] = useState("");
@@ -123,6 +132,7 @@ export default function AddCar(props) {
               <Button disabled={disabled} onClick={submit} variant="contained" color="primary">Submit</Button>
               <Button onClick={home} variant="outlined" color="primary">Cancel</Button>
             </Box>
+            <BlockLoading color='#0055A5'/>
           </form>
         </Container>
     </MuiThemeProvider>
