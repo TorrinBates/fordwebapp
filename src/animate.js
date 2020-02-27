@@ -1,5 +1,5 @@
 import  { keyframes } from 'styled-components';
-const $InColor = '#f9c094';
+const $InColor = '#03a1fc';
 const $color = '#00adb5';
 const Rotate = keyframes`
   0% {
