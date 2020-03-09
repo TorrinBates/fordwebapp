@@ -37,6 +37,7 @@ const dashStyles = makeStyles(theme => ({
         }
     },
     Carousel: {
+        overflow: 'hidden',
         maxHeight: "235px",
     },
     Img: {
@@ -57,6 +58,11 @@ const dashStyles = makeStyles(theme => ({
     },
     Box: {
         height: '100%',
+        display: 'flex'
+    },
+    BoxSmall: {
+        height: '100%',
+        minWidth: '270px'
     }
 }));
 
@@ -93,6 +99,9 @@ export default function CarInfo(props) {
             });
         })
     };
+    var toSmall = (window.innerWidth < 1527);
+
+    const classStyle = toSmall ? classes.BoxSmall : classes.Box;
 
   return (  
     <Box className={classes.Outer}>
@@ -106,7 +115,7 @@ export default function CarInfo(props) {
                 </Button>
             </Box>
             <Box flexGrow={1} className={classes.CarDiv}>
-                <Box display="flex" className={classes.Box} >
+                <Box className={classStyle} >
                     <Box flexGrow={1}/>
                     <Box alignSelf='center'>
                     <b className={classes.Text}>
