@@ -42,9 +42,8 @@ export default function SignIn(props) {
   
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const classes = useStyles();
-
   const [open, setOpen] = React.useState(false);
+  const classes = useStyles();
 
   let updateUser = (e) => {
     setUsername(e.target.value);

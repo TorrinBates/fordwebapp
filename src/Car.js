@@ -2,7 +2,7 @@ import React from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import { Link } from "react-router-dom";
-import defaultt from './DefaultCar.png';
+import DefaultCar from './DefaultCar.png';
 
 const useStyles = makeStyles( theme => ({
     CarDiv: {
@@ -36,10 +36,10 @@ export default function Contact(props) {
     const classes = useStyles();
     return (
     <Box classes={{ hover: classes.hover }} className={classes.CarDiv} >
-        <Link className={classes.CarLink} to={{pathname: "/carinfo", state: { carid: props.carid }}}>
+        <Link className={classes.CarLink} to={{pathname: "/carinfo", state: { carid: props.carid, icon: props.icon, year: props.year, model: props.model }}}>
             <Box display="flex">
                 <Box alignSelf="center" className={classes.CarImageBox}>
-                    <img src={props.icon} alt="the car we are representing." onError={(e)=>{e.target.onerror = null; e.target.src=defaultt}}/>
+                    <img src={props.icon} alt="the car we are representing." onError={(e)=>{e.target.onerror = null; e.target.src=DefaultCar}}/>
                 </Box>
                 <Box alignSelf="center" className={classes.CarTextBox}>
                     <p className={classes.CarText}>

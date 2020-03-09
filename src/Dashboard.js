@@ -39,7 +39,7 @@ export default function Dashboard(props) {
   return (  
     <MuiThemeProvider theme={the}>
       <CssBaseline />  
-      <Header props={props} title="Dashboard"/>
+      <Header props={props}/>
       <Box display="flex" className={classes.Boxspacing}>
         <Box alignSelf="center">
           <b className={classes.Text}>

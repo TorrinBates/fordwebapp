@@ -161,7 +161,7 @@ export default function AddMedia(props) {
   return (  
     <MuiThemeProvider theme={the}>
       <CssBaseline />   
-      <Header props={props} title="Add Media"/>
+      <Header props={props}/>
       <Box className={classes.Boxspacing}>
         <b className={classes.Text}>Add Media</b>
         <form>

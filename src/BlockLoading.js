@@ -1,14 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Rotate, animateFirst, animateTwo, animateThree, animateFour } from './animate';
-const commonStyle = {
-    margin: 'auto',
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0
-  };
+import { Rotate, animateFirst, animateTwo, animateThree, animateFour } from './Animate';
   
   const sizeItem = {
     small: '10px',
@@ -20,12 +12,6 @@ const commonStyle = {
     small: '24px',
     default: '30px',
     large: '36px'
-  }
-  
-  const borderRadiusContainerSize = {
-    small: '12px',
-    default: '15px',
-    large: '18px'
   }
   
 const LoadContainer = styled.div`
@@ -60,7 +46,10 @@ const ItemFour = styled(Item)`
   animation: ${ props => animateFour(props.color || '#00adb5')} ${props => props.speed / 4 || 2}s infinite ease-in-out;
 `;
 
-const BlockLoading = ({ style = commonStyle, speed, size="default", color }) => {
+const BlockLoading = ({isHidden, speed, size="default", color }) => {
+
+  const style = isHidden ? {margin: 'auto', display: 'none'} : {margin: 'auto'};
+
   return (
     <LoadContainer style={style} speed={speed} size={size}>
       <ItemFirst speed={speed} size={size} color={color}></ItemFirst>
