@@ -17,7 +17,7 @@ export default function Routes({ appProps }) {
         <AuthenticatedRoute path="/carinfo" component={CarInfo} appProps={appProps}/>
         <AuthenticatedRoute path="/addcar" component={AddCar} appProps={appProps}/>
         <AuthenticatedRoute path="/addmedia" component={AddMedia} appProps={appProps}/>
-        <AuthenticatedRoute component={PageNotFound} />
+        <Route component={PageNotFound} />
     </Switch>
   );
 }
