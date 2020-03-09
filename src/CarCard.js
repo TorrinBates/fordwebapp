@@ -50,7 +50,7 @@ const dashStyles = makeStyles(theme => ({
     },
     Txt: {
         fontSize: 24,
-        margin: theme.spacing(0, 1.5, 0, 1.5),
+        textAlign: 'center',
     },
     Text: {
         fontSize: 24,
@@ -62,7 +62,9 @@ const dashStyles = makeStyles(theme => ({
     },
     BoxSmall: {
         height: '100%',
-        minWidth: '270px'
+        alignItems: 'center',
+        minWidth: '270px',
+        marginTop: theme.spacing(10)
     }
 }));
 
@@ -99,9 +101,11 @@ export default function CarInfo(props) {
             });
         })
     };
+    console.log(window.innerWidth);
     var toSmall = (window.innerWidth < 1527);
 
     const classStyle = toSmall ? classes.BoxSmall : classes.Box;
+    const textStyle = toSmall ? classes.Txt : classes.Text;
 
   return (  
     <Box className={classes.Outer}>
@@ -118,14 +122,14 @@ export default function CarInfo(props) {
                 <Box className={classStyle} >
                     <Box flexGrow={1}/>
                     <Box alignSelf='center'>
-                    <b className={classes.Text}>
-                        Managing Media For:
-                    </b>
+                        <div className={textStyle}>
+                            <b>Managing Media For:</b>
+                        </div>
                     </Box>
                     <Box alignSelf='center'>
-                    <div className={classes.Txt}>
-                        {props.year} {props.make} {props.model}
-                    </div>
+                        <div className={textStyle}>
+                            {props.year} {props.make} {props.model}
+                        </div>
                     </Box>
                     <Box flexGrow={1}/>
                 </Box>
