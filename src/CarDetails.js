@@ -48,7 +48,7 @@ export default function CarInfo(props) {
     <MuiThemeProvider theme={the}>
       <CssBaseline />   
       <Header props={props}/>
-      <Card icon={props.location.state.icon} model={props.location.state.model} year={props.location.state.year} carid={props.location.state.carid}/>
+      <Card icon={props.location.state.icon} model={props.location.state.model} year={props.location.state.year} carid={props.location.state.carid} make={props.location.state.make}/>
       <Grid className={classes.Container}>
         <Button onClick={AddMedia} color="primary" className={classes.Add}>
           + Add Media

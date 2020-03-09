@@ -14,9 +14,11 @@ const headerStyles = makeStyles(theme => ({
   signout: {
     margin: theme.spacing(0, 1, 0, 0),
     backgroundColor: '#FAFAFA',
+    borderColor: '#FAFAFA',
     color: '#0055A5',
     '&:hover': {
       backgroundColor: '#C91717',
+      borderColor: '#C91717',
       color: '#FAFAFA'
     }
   },

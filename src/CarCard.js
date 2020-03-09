@@ -40,15 +40,15 @@ const dashStyles = makeStyles(theme => ({
         width: 'auto',
     },
     Txt: {
-        fontSize: 22,
+        fontSize: 32,
+        margin: theme.spacing(0, 1.5, 0, 1.5),
     },
     Text: {
-        fontSize: 28,
-        margin: theme.spacing(0, 3, 0, 3),
+        fontSize: 32,
+        margin: theme.spacing(0, 1.5, 0, 1.5),
     },
     Box: {
-        alignContent: 'center',
-        alignItems: 'center'
+        height: '100%',
     }
 }));
 
@@ -99,18 +99,21 @@ export default function CarInfo(props) {
             </Box>
             <Box flexGrow={1} className={classes.CarDiv}>
                 <Box display="flex" className={classes.Box} >
+                    <Box flexGrow={1}/>
+                    <Box alignSelf='center'>
                     <b className={classes.Text}>
-                        Managing Media For
+                        Managing Media For:
                     </b>
-                    <p className={classes.Txt}>
-                        {props.model}
-                    </p>
-                    <p className={classes.Txt}>
-                        {props.year}
-                    </p>
+                    </Box>
+                    <Box alignSelf='center'>
+                    <div className={classes.Txt}>
+                        {props.year} {props.make} {props.model}
+                    </div>
+                    </Box>
+                    <Box flexGrow={1}/>
                 </Box>
             </Box>
-            <img className={classes.Img2} src="https://www.ford.com/cmslibs/content/dam/brand_ford/en_us/brand/legacy/marketing/billboard/20_FRD_EPR_400090_167.jpg/_jcr_content/renditions/cq5dam.web.1440.1440.jpeg"/>
+            <img className={classes.Img2} alt="car rotations" src="https://www.ford.com/cmslibs/content/dam/brand_ford/en_us/brand/legacy/marketing/billboard/20_FRD_EPR_400090_167.jpg/_jcr_content/renditions/cq5dam.web.1440.1440.jpeg"/>
         </Box>
     </Box>
   );

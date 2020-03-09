@@ -36,7 +36,7 @@ export default function Contact(props) {
     const classes = useStyles();
     return (
     <Box classes={{ hover: classes.hover }} className={classes.CarDiv} >
-        <Link className={classes.CarLink} to={{pathname: "/carinfo", state: { carid: props.carid, icon: props.icon, year: props.year, model: props.model }}}>
+        <Link className={classes.CarLink} to={{pathname: "/carinfo", state: { carid: props.carid, icon: props.icon, year: props.year, model: props.model, make: props.make}}}>
             <Box display="flex">
                 <Box alignSelf="center" className={classes.CarImageBox}>
                     <img src={props.icon} alt="the car we are representing." onError={(e)=>{e.target.onerror = null; e.target.src=DefaultCar}}/>
