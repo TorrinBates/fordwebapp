@@ -4,7 +4,12 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import DefaultCar from './DefaultCar.png';
+import Explorer from './explorer.jpeg';
+import Expedition from './expedition.jpeg';
+import Mustang from './mustang.jpeg';
+import F150 from './f150.jpeg';
 import { Auth } from 'aws-amplify';
+import Carousel from 'react-material-ui-carousel'
 import {useHistory} from 'react-router-dom';
 
 const dashStyles = makeStyles(theme => ({
@@ -30,6 +35,9 @@ const dashStyles = makeStyles(theme => ({
             backgroundColor: '#C91717',
             color: '#FFFFFF'
         }
+    },
+    Carousel: {
+        maxHeight: "235px",
     },
     Img: {
         margin: theme.spacing(0, 3, 0, 3),
@@ -113,7 +121,12 @@ export default function CarInfo(props) {
                     <Box flexGrow={1}/>
                 </Box>
             </Box>
-            <img className={classes.Img2} alt="car rotations" src="https://www.ford.com/cmslibs/content/dam/brand_ford/en_us/brand/legacy/marketing/billboard/20_FRD_EPR_400090_167.jpg/_jcr_content/renditions/cq5dam.web.1440.1440.jpeg"/>
+            <Carousel indicators={false} className={classes.Carousel}>
+                <img className={classes.Img2} alt="car rotations" src={Explorer}/>
+                <img className={classes.Img2} alt="car rotations" src={F150}/>
+                <img className={classes.Img2} alt="car rotations" src={Mustang}/>
+                <img className={classes.Img2} alt="car rotations" src={Expedition}/>
+            </Carousel>
         </Box>
     </Box>
   );
