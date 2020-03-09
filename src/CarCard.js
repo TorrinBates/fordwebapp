@@ -48,11 +48,11 @@ const dashStyles = makeStyles(theme => ({
         width: 'auto',
     },
     Txt: {
-        fontSize: 32,
+        fontSize: 24,
         margin: theme.spacing(0, 1.5, 0, 1.5),
     },
     Text: {
-        fontSize: 32,
+        fontSize: 24,
         margin: theme.spacing(0, 1.5, 0, 1.5),
     },
     Box: {
