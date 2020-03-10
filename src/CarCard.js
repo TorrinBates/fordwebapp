@@ -52,14 +52,6 @@ const dashStyles = makeStyles(theme => ({
         fontSize: 24,
         textAlign: 'center',
     },
-    Text: {
-        fontSize: 24,
-        margin: theme.spacing(0, 1.5, 0, 1.5),
-    },
-    Box: {
-        height: '100%',
-        display: 'flex'
-    },
     BoxSmall: {
         height: '100%',
         alignItems: 'center',
@@ -101,11 +93,9 @@ export default function CarInfo(props) {
             });
         })
     };
-    console.log(window.innerWidth);
-    var toSmall = (window.innerWidth < 1527);
 
-    const classStyle = toSmall ? classes.BoxSmall : classes.Box;
-    const textStyle = toSmall ? classes.Txt : classes.Text;
+    const classStyle = classes.BoxSmall;
+    const textStyle = classes.Txt;
 
   return (  
     <Box className={classes.Outer}>
@@ -119,15 +109,15 @@ export default function CarInfo(props) {
                 </Button>
             </Box>
             <Box flexGrow={1} className={classes.CarDiv}>
-                <Box className={classStyle} >
+                <Box className={classes.BoxSmall} >
                     <Box flexGrow={1}/>
                     <Box alignSelf='center'>
-                        <div className={textStyle}>
+                        <div className={classes.Txt}>
                             <b>Managing Media For:</b>
                         </div>
                     </Box>
                     <Box alignSelf='center'>
-                        <div className={textStyle}>
+                        <div className={classes.Txt}>
                             {props.year} {props.make} {props.model}
                         </div>
                     </Box>
