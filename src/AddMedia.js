@@ -21,6 +21,7 @@ const customStyles = {
   control: (base, state) => ({
     ...base,
     boxShadow: state.isFocused ? "0 0 0 0.08rem #0055A5" : 0,
+    height: '56px',
     borderColor: state.isFocused ? '#0055A5' : base.borderColor,
     '&:hover': {
       borderColor: state.isFocused ? '#0055A5' : base.borderColor,
