@@ -81,7 +81,7 @@ export default function SignIn(props) {
       <div className={classes.paper}>
         <img src={logo} width="300" height="115" alt="Ford logo"/>
         <Typography component="h1" variant="h5">
-          DB Editor Sign In
+          Ford Vehicle Manager
         </Typography>
         <form className={classes.form} noValidate>
           <TextField

@@ -24,6 +24,7 @@ function App() {
   }
 
   return (
+    !isAuthenticating &&
     <Router>
       <div className="App">
         <Routes  appProps={{ isAuthenticated, userHasAuthenticated }}/>

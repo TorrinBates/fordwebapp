@@ -47,8 +47,7 @@ export default function Header(props) {
       await Auth.signOut();
       props.props.userHasAuthenticated(false);
 	} catch (e) {
-        alert(e.message);
-    }
+  }
   };
 
   let history = useHistory();

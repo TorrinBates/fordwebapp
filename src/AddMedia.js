@@ -8,6 +8,12 @@ import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import Select from 'react-select';
 import { Auth } from 'aws-amplify';
+import MuiAlert from '@material-ui/lab/Alert';
+import Snackbar from '@material-ui/core/Snackbar';
+
+function Alert(pprops) {
+  return <MuiAlert elevation={6} variant="filled" {...pprops} />;
+}
 
 const the = createMuiTheme({
   palette: {
@@ -45,13 +51,32 @@ const mediaStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(2),
     marginTop: theme.spacing(2),
   },
+  TagsText: {
+    fontSize: 22,
+  },
   SelectText: {
     fontSize: 17,
+  },
+  Formspacing: {
+    margin: theme.spacing(0, 5, 2, 5)
+  },
+  Tagspacing: {
+    margin: theme.spacing(2, 8, 2, 8),
+    width: '60%'
   },
 }));
 
 function createData(label, value) {
   return {label, value};
+}
+
+var valid = {"PrimaryId": false, "Type": false, "MediaLabel": false, "Link": false}
+
+function resetDict() {
+  for (const prop in valid)
+  {
+    valid[prop] = false;
+  }
 }
 
 const mediaOptions = [{ value: "Video", label: "Video" },{ value: "FAQ", label: "FAQ" }];
@@ -62,6 +87,8 @@ var secondarydict = {};
 export default function AddMedia(props) {
 
   const classes = mediaStyles();
+  const [disabled, setDisabled] = useState(true);
+  const [open, setOpen] = React.useState(false);
   const [value, setValue] = useState(true);
   const [primaryId, setPrimaryId] = useState(null);
   const [secondaryId, setSecondaryId] = useState(null);
@@ -70,14 +97,39 @@ export default function AddMedia(props) {
   const [link, setLink] = useState("");
   let history = useHistory();
 
+  let checkComplete = (dic) => {
+    var key = Object.keys(dic)[0];
+    if (dic[key] !== "")
+    {
+      valid[key] = true;
+    }
+    else
+    {
+      valid[key] = false;
+    }
+
+    if (valid["PrimaryId"] && valid["Type"] && valid["MediaLabel"] && valid["Link"])
+    {
+      setDisabled(false);
+    }
+    else 
+    {
+      setDisabled(true);
+    }
+  };
   let updateMediaLabel = (e) => {
-    setMediaLabel(e.target.value);
+    var v = e.target.value;
+    setMediaLabel(v);
+    checkComplete({"MediaLabel": v});
   };
   let updateLink = (e) => {
-    setLink(e.target.value);
+    var v = e.target.value;
+    setLink(v);
+    checkComplete({"Link": v});
   };
 
   let backMedia = () => {
+    resetDict();
     history.goBack();
   }
   let gettags = async event => {
@@ -117,10 +169,12 @@ export default function AddMedia(props) {
     if (opt != null)
     {
       secondarytags = secondarydict[opt.value];
+      checkComplete({"PrimaryId": "Good"});
     }
     else
     {
       secondarytags = [];
+      checkComplete({"PrimaryId": ""});
     }
     setSecondaryId(null);
   }
@@ -129,6 +183,14 @@ export default function AddMedia(props) {
   }
   let selectType = (opt) => {
     setType(opt);
+    if (opt != null)
+    {
+      checkComplete({"Type": "Good"});
+    }
+    else
+    {
+      checkComplete({"Type": ""});
+    }
   }
   let submit = () => {
     Auth.currentSession().then(async res=>{
@@ -154,28 +216,42 @@ export default function AddMedia(props) {
       }).then(function(response) {
         backMedia();
       }).catch(function(error) {
-        alert(error.message);
+        setOpen(true);
       });
     })
   }
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
 
   return (  
     <MuiThemeProvider theme={the}>
       <CssBaseline />   
       <Header props={props}/>
       <Box className={classes.Boxspacing}>
+        <Snackbar open={open} autoHideDuration={4000} onClose={handleClose} >
+          <Alert severity="error">Error: Check form and try again.</Alert>
+        </Snackbar>
         <b className={classes.Text}>Add Media</b>
-        <form>
+        <form className={classes.Formspacing}>
           <TextField variant="outlined" margin="normal" required fullWidth id="medialabel" label="Media Label" name="medialabel" autoComplete="medialabel" onChange={updateMediaLabel}/>
           <TextField variant="outlined" className={classes.SecondTextField} required fullWidth id="link" label="Media URL" name="link" autoComplete="link" onChange={updateLink}/>
-          <b className={classes.SelectText}>Type</b>
+          <b className={classes.SelectText}>Media Type</b>
           <Select options={mediaOptions} onChange={opt => selectType(opt)} value={type} isClearable={true} styles={customStyles} className={classes.Dropdown}/>
-          <b className={classes.SelectText}>Primary Tag</b>
-          <Select options={primarytags} onChange={opt => selectPrimary(opt)} value={primaryId} isClearable={true} styles={customStyles} className={classes.Dropdown}/>
-          <b className={classes.SelectText}>Secondary Tag</b>
-          <Select options={secondarytags} onChange={opt => selectSecondary(opt)} value={secondaryId} isClearable={true} styles={customStyles} className={classes.Dropdown}/>
+          <Box>
+            <b className={classes.TagsText}>Tags</b>
+          </Box>
+          <Box className={classes.Tagspacing}>
+            <b className={classes.SelectText}>Primary</b>
+            <Select options={primarytags} onChange={opt => selectPrimary(opt)} value={primaryId} isClearable={true} styles={customStyles} className={classes.Dropdown}/>
+            <b className={classes.SelectText}>Secondary</b>
+            <Select options={secondarytags} onChange={opt => selectSecondary(opt)} value={secondaryId} isClearable={true} styles={customStyles} className={classes.Dropdown}/>
+          </Box>
           <Box display="flex" flexDirection="row-reverse">
-            <Button onClick={submit} variant="contained" color="primary">Submit</Button>
+            <Button disabled={disabled} onClick={submit} variant="contained" color="primary">Submit</Button>
             <Button onClick={backMedia} variant="outlined" color="primary">Cancel</Button>
           </Box>
         </form>

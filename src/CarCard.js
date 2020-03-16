@@ -94,9 +94,6 @@ export default function CarInfo(props) {
         })
     };
 
-    const classStyle = classes.BoxSmall;
-    const textStyle = classes.Txt;
-
   return (  
     <Box className={classes.Outer}>
         <Box display="flex">

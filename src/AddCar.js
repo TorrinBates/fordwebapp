@@ -39,7 +39,7 @@ const addCarStyles = makeStyles(theme => ({
   },
 }));
 
-var valid = {"Make": false, "Model": false, "Year": false, "Link": false}
+var valid = {"Make": false, "Model": false, "Year": false}
 
 function resetDict() {
   for (const prop in valid)
@@ -57,7 +57,6 @@ export default function AddCar(props) {
   const [make, setMake] = useState("");
   const [model, setModel] = useState("");
   const [year, setYear] = useState("");
-  const [link, setLink] = useState("");
   let history = useHistory();
 
   let checkComplete = (dic) => {
@@ -71,7 +70,7 @@ export default function AddCar(props) {
       valid[key] = false;
     }
 
-    if (valid["Make"] && valid["Model"] && valid["Year"] && valid["Link"])
+    if (valid["Make"] && valid["Model"] && valid["Year"])
     {
       setDisabled(false);
     }
@@ -95,11 +94,6 @@ export default function AddCar(props) {
     setYear(value);
     checkComplete({"Year": value});
   };
-  let updateLink = (e) => {
-    var value = e.target.value;
-    setLink(value);
-    checkComplete({"Link": value});
-  };
   let home = () => {
     resetDict();
     history.push("/dashboard");
@@ -119,7 +113,6 @@ export default function AddCar(props) {
           make: make,
           model: model,
           year: year,
-          ownermanual: link
         })
       }).then(function(response) {
         if (!response.ok) {
@@ -154,7 +147,6 @@ export default function AddCar(props) {
             <TextField variant="outlined" margin="normal" required fullWidth id="make" label="Make" onChange={updateMake}/>
             <TextField variant="outlined" margin="normal" required fullWidth id="model" label="Model" onChange={updateModel}/>
             <TextField variant="outlined" margin="normal" required fullWidth id="year" label="Year" onChange={updateYear}/>
-            <TextField variant="outlined" margin="normal" required fullWidth id="link" label="Owners Manual URL" onChange={updateLink}/>
             <Box display="flex" flexDirection="row-reverse">
               <Button disabled={disabled} onClick={submit} variant="contained" color="primary">Submit</Button>
               <Button onClick={home} variant="outlined" color="primary">Cancel</Button>
