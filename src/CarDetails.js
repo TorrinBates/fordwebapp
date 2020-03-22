@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import Header from './Header';
 import MediaTable from './MediaTable'
 import Card from './CarCard'
+import Tabs from './Tabs'
 
 const the = createMuiTheme({
   palette: {
@@ -27,11 +28,6 @@ const dashStyles = makeStyles(theme => ({
     float: 'right',
     margin: theme.spacing(1, 0, 1, 0),
     fontSize: 22,
-    border: '2px solid',
-    borderColor: '#FAFAFA',
-    '&:hover': {
-      borderColor: '#0055A5'
-    }
   }
 }));
 
@@ -55,6 +51,7 @@ export default function CarInfo(props) {
         </Button>
         <MediaTable carid={props.location.state.carid}/>
       </Grid>
+      <Tabs/>
     </MuiThemeProvider>
   );
 }

@@ -4,7 +4,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { MuiThemeProvider, createMuiTheme, makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
-import Table from './CarTable'
+import CarTable from './CarTable'
 import Header from './Header';
 
 const the = createMuiTheme({
@@ -24,7 +24,7 @@ const dashStyles = makeStyles(theme => ({
   },
   Text: {
     fontSize: 26,
-  }
+  },
 }));
 
 export default function Dashboard(props) {
@@ -53,7 +53,7 @@ export default function Dashboard(props) {
           </Button>
         </Box>
       </Box>
-      <Table />
+      <CarTable/>
     </MuiThemeProvider>
   );
 }

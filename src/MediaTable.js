@@ -40,6 +40,10 @@ const useStyles = makeStyles({
   table: {
     minWidth: 700,
   },
+  cont: {
+    borderRadius: 10,
+    boxShadow: '0 3px 5px 2px #C2C1C1',
+  },
   tableRow: {
     "&$hover:hover": {
       backgroundColor: '#A9CCED'
@@ -92,8 +96,8 @@ export default function MediaTable(props) {
   }
 
   return (
-    <TableContainer component={Paper} >
-      <Table className={classes.table} aria-label="customized table">
+    <TableContainer component={Paper} className={classes.cont}>
+      <Table className={classes.table} aria-label="Car Media Table">
         <TableHead>
           <TableRow>
             <StyledTableCell>Media</StyledTableCell>
