@@ -11,7 +11,7 @@ import BlockLoading from './BlockLoading';
 import MuiAlert from '@material-ui/lab/Alert';
 import Snackbar from '@material-ui/core/Snackbar';
 
-const the = createMuiTheme({
+const theme = createMuiTheme({
   palette: {
     primary: {
       main: '#0055A5'
@@ -135,7 +135,7 @@ export default function AddCar(props) {
   };
 
   return (  
-    <MuiThemeProvider theme={the}>
+    <MuiThemeProvider theme={theme}>
       <CssBaseline />   
         <Header props={props}/>
         <Box className={classes.Boxspacing}>

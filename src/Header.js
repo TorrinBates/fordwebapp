@@ -13,13 +13,13 @@ import logo from './Ford_logo_flat.svg';
 const headerStyles = makeStyles(theme => ({
   signout: {
     margin: theme.spacing(0, 1, 0, 0),
-    backgroundColor: '#FAFAFA',
-    borderColor: '#FAFAFA',
+    backgroundColor: '#FFFFFF',
+    borderColor: '#FFFFFF',
     color: '#0055A5',
     '&:hover': {
       backgroundColor: '#C91717',
       borderColor: '#C91717',
-      color: '#FAFAFA'
+      color: '#FFFFFF'
     }
   },
   logo: {
@@ -27,11 +27,11 @@ const headerStyles = makeStyles(theme => ({
   },
   home: {
     margin: theme.spacing(1, 1, 1, 1),
-    backgroundColor: '#FAFAFA',
+    backgroundColor: '#FFFFFF',
     color: '#0055A5',
     '&:hover': {
       backgroundColor: '#C91717',
-      color: '#FAFAFA'
+      color: '#FFFFFF'
     }
   }
 }));

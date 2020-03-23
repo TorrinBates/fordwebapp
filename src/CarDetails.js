@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import Header from './Header';
 import MediaTable from './MediaTable'
 import Card from './CarCard'
-import Tabs from './Tabs'
+import ARTabs from './Tabs'
 
 const the = createMuiTheme({
   palette: {
@@ -51,7 +51,7 @@ export default function CarInfo(props) {
         </Button>
         <MediaTable carid={props.location.state.carid}/>
       </Grid>
-      <Tabs/>
+      <ARTabs/>
     </MuiThemeProvider>
   );
 }

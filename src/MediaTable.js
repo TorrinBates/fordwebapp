@@ -9,6 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
+import NoMedia from './NoMedia'
 import { Auth } from 'aws-amplify';
 
 const StyledTableCell = withStyles(theme => ({
@@ -90,6 +91,12 @@ export default function MediaTable(props) {
       });
     })
   }
+  function EmptyMedia() {
+    if (rows.length === 0) {
+      return <NoMedia/>;
+    }
+    return <div></div>
+  }
   if (value)
   {
     gettable();
@@ -126,6 +133,7 @@ export default function MediaTable(props) {
           ))}
         </TableBody>
       </Table>
+      <EmptyMedia/>
     </TableContainer>
   );
 }

@@ -7,7 +7,7 @@ import Box from '@material-ui/core/Box';
 import CarTable from './CarTable'
 import Header from './Header';
 
-const the = createMuiTheme({
+const theme = createMuiTheme({
   palette: {
     primary: {
       main: '#0055A5'
@@ -37,7 +37,7 @@ export default function Dashboard(props) {
   };
 
   return (  
-    <MuiThemeProvider theme={the}>
+    <MuiThemeProvider theme={theme}>
       <CssBaseline />  
       <Header props={props}/>
       <Box display="flex" className={classes.Boxspacing}>

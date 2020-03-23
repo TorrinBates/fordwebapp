@@ -14,7 +14,7 @@ function Alert(pprops) {
   return <MuiAlert elevation={6} variant="filled" {...pprops} />;
 }
 
-const the = createMuiTheme({
+const theme = createMuiTheme({
   palette: {
     primary: {
       main: '#0055A5'
@@ -72,7 +72,7 @@ export default function SignIn(props) {
   };
 
   return (
-    <MuiThemeProvider theme={the}>
+    <MuiThemeProvider theme={theme}>
     <Snackbar open={open} autoHideDuration={5000} onClose={handleClose} anchorOrigin={{vertical: 'top', horizontal: 'right'}} >
       <Alert severity="error">Incorrect username and password combination.</Alert>
     </Snackbar>
