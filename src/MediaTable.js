@@ -103,6 +103,7 @@ export default function MediaTable(props) {
   }
 
   return (
+    !value &&
     <TableContainer component={Paper} className={classes.cont}>
       <Table className={classes.table} aria-label="Car Media Table">
         <TableHead>
