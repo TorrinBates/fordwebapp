@@ -16,13 +16,13 @@ const useStyles = makeStyles( theme => ({
         alignItems: 'center',
     },
     Txt: {
-        fontSize: 24,
+        fontSize: 20,
         color: '#FFFFFF',
-        margin: theme.spacing(0, 0, 0, 1),
+        margin: theme.spacing(0, .5, 0, 1),
     },
     Ico: {
         color: '#FFFFFF',
-        margin: theme.spacing(0, 1, 0, 0),
+        margin: theme.spacing(0, 1, 0, .5),
         width: theme.spacing(8),
         height: theme.spacing(8),
     },
