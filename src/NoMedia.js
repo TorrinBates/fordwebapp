@@ -28,7 +28,7 @@ const useStyles = makeStyles( theme => ({
     },
   }));
 
-export default function Contact(props) {
+export default function Contact() {
     const classes = useStyles();
     return (
     <Box display="flex" justifyContent="center">
