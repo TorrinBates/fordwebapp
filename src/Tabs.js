@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { MuiThemeProvider, createMuiTheme, makeStyles, withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -7,6 +7,7 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { Button } from '@material-ui/core';
+import ARTag from './ARTag';
 
 const theme = createMuiTheme({
   palette: {
@@ -81,36 +82,80 @@ const StyledTab = withStyles({
         textTransform: 'none',
         padding: '16px',
     },
-  })(Tab);
+})(Tab);
+
+var Steering = [];
+var Instrument = [];
+var Entertainment = [];
 
 export default function SimpleTabs() {
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
+  const [tab, setTab] = useState(0);
+  const [value, setValue] = useState(true);
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
+  const handleChange = (event, newTab) => {
+    setTab(newTab);
   };
+
+  let getAR = async event => {
+    try {
+      let response = await fetch('https://pmd374kj6j.execute-api.us-east-2.amazonaws.com/prod/ar-button');
+      let responseJson = await response.json();
+
+      const stags = [];
+      const etags = [];
+      const itags = [];
+      for (var tag of responseJson) 
+      {
+        if (tag.section === "Steering Wheel")
+        {
+          stags.push(tag);
+        }
+        else if (tag.section === "Entertainment System")
+        {
+          etags.push(tag);
+        }
+        else if (tag.section === "Instrument Cluster")
+        {
+          itags.push(tag);
+        }
+      }
+      console.log(stags);
+      console.log(etags);
+      console.log(itags);
+
+      Steering = stags;
+      Entertainment = etags;
+      Instrument = itags;
+      setValue(false);
+     }
+    catch(error) {}
+  }
+  if (value)
+  {
+    getAR();
+  }
 
   return (
     <MuiThemeProvider theme={theme}>
       <div className={classes.root}>
         <AppBar position="static" className={classes.app}>
-          <Tabs value={value} indicatorColor="primary" onChange={handleChange} aria-label="AR Tagging Tabs">
+          <Tabs value={tab} indicatorColor="primary" onChange={handleChange} aria-label="AR Tagging Tabs">
             <StyledTab label="Steering Wheel" {...a11yProps(0)} />
-            <StyledTab label="Gauge Cluster" {...a11yProps(1)} />
-            <StyledTab label="Infotainment Center" {...a11yProps(2)} />
+            <StyledTab label="Instrument Cluster" {...a11yProps(1)} />
+            <StyledTab label="Entertainment System" {...a11yProps(2)} />
             <Box flexGrow={1}/>
             <Button className={classes.save}> Save </Button>
           </Tabs>
         </AppBar>
-        <TabPanel value={value} index={0}>
-          Steering Wheel
+        <TabPanel value={tab} index={0}>
+          {Steering.map(c => <ARTag key={c.ar_buttonid} feature={c.feature} image={c.image}/>)}
         </TabPanel>
-        <TabPanel value={value} index={1}>
-          Gauge Cluster
+        <TabPanel value={tab} index={1}>
+          {Instrument.map(c => <ARTag key={c.ar_buttonid} feature={c.feature} image={c.image}/>)}
         </TabPanel>
-        <TabPanel value={value} index={2}>
-          Infotainment Center
+        <TabPanel value={tab} index={2}>
+          {Entertainment.map(c => <ARTag key={c.ar_buttonid} feature={c.feature} image={c.image}/>)}
         </TabPanel>
       </div>
     </MuiThemeProvider>

@@ -32,7 +32,7 @@ const useStyles = makeStyles( theme => ({
     }
   }));
 
-export default function Contact(props) {
+export default function Car(props) {
     const classes = useStyles();
     return (
     <Box classes={{ hover: classes.hover }} className={classes.CarDiv} >

@@ -213,9 +213,9 @@ export default function AddMedia(props) {
       }).then(function(response) {
         if (!response.ok) { throw Error(response.statusText); }
         return response;
-      }).then(function(response) {
+      }).then(function() {
         backMedia();
-      }).catch(function(error) {
+      }).catch(function() {
         setOpen(true);
       });
     })
