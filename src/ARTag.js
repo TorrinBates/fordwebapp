@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Switch from '@material-ui/core/Switch';
 
@@ -56,17 +56,32 @@ const IOSSwitch = withStyles(theme => ({
     );
 });
 
-export default function Tag(props) {
+const useStyles = makeStyles(theme => ({
+    Parent: {
+        marginBottom: theme.spacing(1),
+    },
+    Img: {
+        marginRight: theme.spacing(2),
+    },
+    Txt: {
+        fontSize: 18,
+        marginRight: theme.spacing(2),
+    },
+}));
 
+export default function Tag(props) {
+    const classes = useStyles();
     const [enabled, setEnabled] = useState(false);
     const handleChange = event => {
         setEnabled(!enabled);
     };
 
     return (
-        <Box display="flex" alignItems="center">
-            <b>{props.feature}:</b>
-            <img width="50" height="50" src={props.image} alt="AR Button Image."/>
+        <Box display="flex" alignItems="center" className={classes.Parent}>
+            <img width="50" height="50" src={props.image} className={classes.Img} alt="AR Button Image."/>
+            <b className={classes.Txt}>{props.feature}:</b>
+
+            <Box flexGrow={1}/>
             <IOSSwitch checked={enabled} onChange={handleChange} name="checkedB" />
         </Box>
     );
