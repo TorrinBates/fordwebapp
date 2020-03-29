@@ -120,9 +120,6 @@ export default function SimpleTabs() {
           itags.push(tag);
         }
       }
-      console.log(stags);
-      console.log(etags);
-      console.log(itags);
 
       Steering = stags;
       Entertainment = etags;
@@ -149,13 +146,13 @@ export default function SimpleTabs() {
           </Tabs>
         </AppBar>
         <TabPanel value={tab} index={0}>
-          {Steering.map(c => <ARTag key={c.ar_buttonid} feature={c.feature} image={c.image}/>)}
+          {Steering.map(c => <ARTag key={c.ar_buttonid} section={c.section} feature={c.feature} image={c.image}/>)}
         </TabPanel>
         <TabPanel value={tab} index={1}>
-          {Instrument.map(c => <ARTag key={c.ar_buttonid} feature={c.feature} image={c.image}/>)}
+          {Instrument.map(c => <ARTag key={c.ar_buttonid} section={c.section} feature={c.feature} image={c.image}/>)}
         </TabPanel>
         <TabPanel value={tab} index={2}>
-          {Entertainment.map(c => <ARTag key={c.ar_buttonid} feature={c.feature} image={c.image}/>)}
+          {Entertainment.map(c => <ARTag key={c.ar_buttonid} section={c.section} feature={c.feature} image={c.image}/>)}
         </TabPanel>
       </div>
     </MuiThemeProvider>

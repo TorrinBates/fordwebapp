@@ -28,7 +28,7 @@ const dashStyles = makeStyles(theme => ({
     float: 'right',
     margin: theme.spacing(1, 0, 1, 0),
     fontSize: 22,
-  }
+  },
 }));
 
 export default function CarInfo(props) {
