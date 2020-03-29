@@ -17,29 +17,6 @@ const theme = createMuiTheme({
   },
 });
 
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <Typography
-      component="div"
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && <Box p={3}>{children}</Box>}
-    </Typography>
-  );
-}
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired,
-};
-
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
@@ -88,7 +65,7 @@ var Steering = [];
 var Instrument = [];
 var Entertainment = [];
 
-export default function SimpleTabs(props) {
+export default function ARTabs(props) {
   const classes = useStyles();
   const [tab, setTab] = useState(0);
   const [value, setValue] = useState(true);
@@ -145,15 +122,17 @@ export default function SimpleTabs(props) {
             <Button className={classes.save}> Save </Button>
           </Tabs>
         </AppBar>
-        <TabPanel value={tab} index={0}>
-          {Steering.map(c => <ARTag key={c.ar_buttonid} section={c.section} feature={c.feature} image={c.image} primarytags={props.primarytags} secondarydict={props.secondarydict}/>)}
-        </TabPanel>
-        <TabPanel value={tab} index={1}>
-          {Instrument.map(c => <ARTag key={c.ar_buttonid} section={c.section} feature={c.feature} image={c.image} primarytags={props.primarytags} secondarydict={props.secondarydict}/>)}
-        </TabPanel>
-        <TabPanel value={tab} index={2}>
-          {Entertainment.map(c => <ARTag key={c.ar_buttonid} section={c.section} feature={c.feature} image={c.image} primarytags={props.primarytags} secondarydict={props.secondarydict}/>)}
-        </TabPanel>
+        <Box p={3}>
+          <div style={{display: tab !== 0 ? 'none' : 'block'}}>
+            {Steering.map(c => <ARTag key={c.ar_buttonid} section={c.section} feature={c.feature} image={c.image} primarytags={props.primarytags} secondarydict={props.secondarydict}/>)}
+          </div>
+          <div style={{display: tab !== 1 ? 'none' : 'block'}}>
+            {Instrument.map(c => <ARTag key={c.ar_buttonid} section={c.section} feature={c.feature} image={c.image} primarytags={props.primarytags} secondarydict={props.secondarydict}/>)}
+          </div>
+          <div style={{display: tab !== 2 ? 'none' : 'block'}}>
+            {Entertainment.map(c => <ARTag key={c.ar_buttonid} section={c.section} feature={c.feature} image={c.image} primarytags={props.primarytags} secondarydict={props.secondarydict}/>)}
+          </div>   
+        </Box> 
       </div>
     </MuiThemeProvider>
   );
