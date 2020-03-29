@@ -66,10 +66,6 @@ const mediaStyles = makeStyles(theme => ({
   },
 }));
 
-function createData(label, value) {
-  return {label, value};
-}
-
 var valid = {"PrimaryId": false, "Type": false, "MediaLabel": false, "Link": false}
 
 function resetDict() {
@@ -80,16 +76,15 @@ function resetDict() {
 }
 
 const mediaOptions = [{ value: "Video", label: "Video" },{ value: "FAQ", label: "FAQ" }];
-var primarytags = [];
 var secondarytags = [];
-var secondarydict = {};
 
 export default function AddMedia(props) {
 
+  var primarytags = props.location.state.primarytags;
+  var secondarydict = props.location.state.secondarydict;
   const classes = mediaStyles();
   const [disabled, setDisabled] = useState(true);
   const [open, setOpen] = React.useState(false);
-  const [value, setValue] = useState(true);
   const [primaryId, setPrimaryId] = useState(null);
   const [secondaryId, setSecondaryId] = useState(null);
   const [type, setType] = useState(null);
@@ -127,42 +122,9 @@ export default function AddMedia(props) {
     setLink(v);
     checkComplete({"Link": v});
   };
-
   let backMedia = () => {
     resetDict();
     history.goBack();
-  }
-  let gettags = async event => {
-    try {
-      let response = await fetch('https://pmd374kj6j.execute-api.us-east-2.amazonaws.com/prod/car/tag?carid='+props.location.state.carid.toString());
-      let responseJson = await response.json();
-      const ptags = [];
-      for (var tag of responseJson) 
-      {
-        if (tag.primarytag === true)
-        {
-          ptags.push(createData(tag.name, tag.tagid));
-        }
-        else
-        {
-          if (tag.primarytagid in secondarydict)
-          {
-            secondarydict[tag.primarytagid].push(createData(tag.name, tag.tagid));
-          }
-          else
-          {
-            secondarydict[tag.primarytagid] = [createData(tag.name, tag.tagid)];
-          }
-        }
-      }
-      primarytags = ptags;
-      setValue(false);
-     }
-    catch(error) {}
-  }
-  if (value)
-  {
-    gettags();
   }
   let selectPrimary = (opt) => {
     setPrimaryId(opt);

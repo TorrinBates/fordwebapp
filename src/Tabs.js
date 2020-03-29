@@ -88,7 +88,7 @@ var Steering = [];
 var Instrument = [];
 var Entertainment = [];
 
-export default function SimpleTabs() {
+export default function SimpleTabs(props) {
   const classes = useStyles();
   const [tab, setTab] = useState(0);
   const [value, setValue] = useState(true);
@@ -146,13 +146,13 @@ export default function SimpleTabs() {
           </Tabs>
         </AppBar>
         <TabPanel value={tab} index={0}>
-          {Steering.map(c => <ARTag key={c.ar_buttonid} section={c.section} feature={c.feature} image={c.image}/>)}
+          {Steering.map(c => <ARTag key={c.ar_buttonid} section={c.section} feature={c.feature} image={c.image} primarytags={props.primarytags} secondarydict={props.secondarydict}/>)}
         </TabPanel>
         <TabPanel value={tab} index={1}>
-          {Instrument.map(c => <ARTag key={c.ar_buttonid} section={c.section} feature={c.feature} image={c.image}/>)}
+          {Instrument.map(c => <ARTag key={c.ar_buttonid} section={c.section} feature={c.feature} image={c.image} primarytags={props.primarytags} secondarydict={props.secondarydict}/>)}
         </TabPanel>
         <TabPanel value={tab} index={2}>
-          {Entertainment.map(c => <ARTag key={c.ar_buttonid} section={c.section} feature={c.feature} image={c.image}/>)}
+          {Entertainment.map(c => <ARTag key={c.ar_buttonid} section={c.section} feature={c.feature} image={c.image} primarytags={props.primarytags} secondarydict={props.secondarydict}/>)}
         </TabPanel>
       </div>
     </MuiThemeProvider>

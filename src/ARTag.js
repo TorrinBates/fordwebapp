@@ -90,8 +90,11 @@ const steeringLocos = [{ value: "Top Right", label: "Top Right"},{ value: "Middl
 { value: "Top Left", label: "Top Left"},{ value: "Middle Left", label: "Middle Left"},{ value: "Bottom Left", label: "Bottom Left"}];
 const instrumentLocos = [{ value: "Video", label: "Video" }];
 const entertainmentLocos = [{ value: "Video", label: "Video" },{ value: "FAQ", label: "FAQ" }];
+var secondarytags = [];
 
 export default function Tag(props) {
+
+  var secondarydict = props.secondarydict;
   var locations;
   if (props.section === "Steering Wheel")
   {
@@ -109,6 +112,7 @@ export default function Tag(props) {
   const [enabled, setEnabled] = useState(false);
   const [primaryId, setPrimaryId] = useState(null);
   const [secondaryId, setSecondaryId] = useState(null);
+  const [locationId, setLocationId] = useState(null);
   const handleChange = event => {
       setEnabled(!enabled);
   };
@@ -116,27 +120,30 @@ export default function Tag(props) {
     setPrimaryId(opt);
     if (opt != null)
     {
-      //secondarytags = secondarydict[opt.value];
+      secondarytags = secondarydict[opt.value];
     }
     else
     {
-      //secondarytags = [];
+      secondarytags = [];
     }
     setSecondaryId(null);
   }
   let selectSecondary = (opt) => {
       setSecondaryId(opt);
   }
+  let selectLocation = (opt) => {
+    setLocationId(opt);
+  }
 
   return (
       <Box display="flex" alignItems="center" className={classes.Parent}>
-          <img width="50" height="50" src={props.image} className={classes.Img} alt="AR Button Image."/>
+          <img width="50" height="50" src={props.image} className={classes.Img} alt="AR Button."/>
           <b className={classes.Txt}>{props.feature}:</b>
           <Box flexGrow={1}/>
-          <IOSSwitch checked={enabled} onChange={handleChange} name="checkedB" />
-          <Select options={locations} onChange={opt => selectSecondary(opt)} value={secondaryId} isClearable={true} styles={customStyles} className={classes.Dropdown}/>
-          <Select options={locations} onChange={opt => selectPrimary(opt)} value={primaryId} isClearable={true} styles={customStyles} className={classes.Dropdown}/>
-          <Select options={locations} onChange={opt => selectSecondary(opt)} value={secondaryId} isClearable={true} styles={customStyles} className={classes.Dropdown}/>
+          <IOSSwitch checked={enabled} onChange={handleChange} name="enabledSlider" />
+          <Select options={props.primarytags} onChange={opt => selectPrimary(opt)} value={primaryId} isClearable={true} styles={customStyles} className={classes.Dropdown}/>
+          <Select options={secondarytags} onChange={opt => selectSecondary(opt)} value={secondaryId} isClearable={true} styles={customStyles} className={classes.Dropdown}/>
+          <Select options={locations} onChange={opt => selectLocation(opt)} value={locationId} isClearable={true} styles={customStyles} className={classes.Dropdown}/>
       </Box>
   );
 }

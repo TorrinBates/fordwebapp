@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import {useHistory} from 'react-router-dom';
 import { MuiThemeProvider, createMuiTheme, makeStyles } from '@material-ui/core/styles';
@@ -31,13 +31,54 @@ const dashStyles = makeStyles(theme => ({
   },
 }));
 
+function createData(label, value) {
+  return {label, value};
+}
+
+var primarytags = [];
+var secondarydict = {};
+
 export default function CarInfo(props) {
   
   const classes = dashStyles();
   let history = useHistory();
+  const [value, setValue] = useState(true);
+
+  let gettags = async event => {
+    try {
+      let response = await fetch('https://pmd374kj6j.execute-api.us-east-2.amazonaws.com/prod/car/tag?carid='+props.location.state.carid.toString());
+      let responseJson = await response.json();
+      const ptags = [];
+      for (var tag of responseJson) 
+      {
+        if (tag.primarytag === true)
+        {
+          ptags.push(createData(tag.name, tag.tagid));
+        }
+        else
+        {
+          if (tag.primarytagid in secondarydict)
+          {
+            secondarydict[tag.primarytagid].push(createData(tag.name, tag.tagid));
+          }
+          else
+          {
+            secondarydict[tag.primarytagid] = [createData(tag.name, tag.tagid)];
+          }
+        }
+      }
+      primarytags = ptags;
+      setValue(false);
+     }
+    catch(error) {}
+  }
+  if (value)
+  {
+    gettags();
+  }
 
   let AddMedia = () => {
-    history.push({pathname: '/addmedia', state: { carid: props.location.state.carid }});
+    history.push({pathname: '/addmedia', state: { carid: props.location.state.carid, primarytags: primarytags, secondarydict: secondarydict}});
   };
 
   return (  
@@ -51,7 +92,7 @@ export default function CarInfo(props) {
         </Button>
         <MediaTable carid={props.location.state.carid}/>
       </Grid>
-      <ARTabs/>
+      <ARTabs primarytags={primarytags} secondarydict={secondarydict}/>
     </MuiThemeProvider>
   );
 }
