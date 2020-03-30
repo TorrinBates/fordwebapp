@@ -65,12 +65,7 @@ export default function ARTabs(props) {
   const classes = useStyles();
   const [tab, setTab] = useState(0);
   const [value, setValue] = useState(true);
-  const [carsSAR, setCarsSAR] = useState({});
-  const [carsEAR, setCarsEAR] = useState({});
-  const [carsIAR, setCarsIAR] = useState({});
-  const [Steering, setSteering] = useState([]);
-  const [Entertainment, setEntertainment] = useState([]);
-  const [Instrument, setInstrument] = useState([]);
+  const [containers, setContainers] = useState({"carsSAR": {}, "carsEAR": {}, "carsIAR": {}, "Steering": [], "Entertainment": [], "Instrument": []});
 
   const handleChange = (event, newTab) => {
     setTab(newTab);
@@ -80,9 +75,9 @@ export default function ARTabs(props) {
       let response = await fetch('https://pmd374kj6j.execute-api.us-east-2.amazonaws.com/prod/ar-button');
       let responseJson = await response.json();
 
-      const stags = [];
-      const etags = [];
-      const itags = [];
+      var stags = [];
+      var etags = [];
+      var itags = [];
       for (var tag of responseJson) 
       {
         if (tag.section === "Steering Wheel")
@@ -98,18 +93,15 @@ export default function ARTabs(props) {
           itags.push(tag);
         }
       }
-      setSteering(stags);
-      setEntertainment(etags);
-      setInstrument(itags);
-     }
+    }
     catch(error) {}
     try {
       let response = await fetch('https://pmd374kj6j.execute-api.us-east-2.amazonaws.com/prod/car/ar?carid='+props.carid.toString());
       let responseJson = await response.json();
       
-      const carssar = {};
-      const carsiar = {};
-      const carsear = {};
+      var carssar = {};
+      var carsiar = {};
+      var carsear = {};
       for (var tag of responseJson) 
       {
         if (tag.section === "Steering Wheel")
@@ -125,17 +117,14 @@ export default function ARTabs(props) {
           carsiar[tag.feature] = tag;
         }
       }
-      setCarsSAR(carssar);
-      setCarsEAR(carsear);
-      setCarsIAR(carsiar);
-     }
+    }
     catch(error) {}
+    setContainers({"carsSAR": carssar, "carsEAR": carsear, "carsIAR": carsiar, "Steering": stags, "Entertainment": etags, "Instrument": itags});
     setValue(false);
   }
 
   if (value)
   {
-    console.log("hit");
     getAR();
   }
 
@@ -154,16 +143,16 @@ export default function ARTabs(props) {
         </AppBar>
         <Box p={3}>
           <div style={{display: tab !== 0 ? 'none' : 'block'}}>
-            {Steering.map(c => <ARTag key={c.ar_buttonid} section={c.section} feature={c.feature} image={c.image} primarytags={props.primarytags} secondarydict={props.secondarydict}
-            info={carsSAR[c.feature]}/>)}
+            {containers["Steering"].map(c => <ARTag key={c.ar_buttonid} section={c.section} feature={c.feature} image={c.image} primarytags={props.primarytags} secondarydict={props.secondarydict}
+            info={containers["carsSAR"][c.feature]}/>)}
           </div>
           <div style={{display: tab !== 1 ? 'none' : 'block'}}>
-            {Instrument.map(c => <ARTag key={c.ar_buttonid} section={c.section} feature={c.feature} image={c.image} primarytags={props.primarytags} secondarydict={props.secondarydict}
-            info={carsIAR[c.feature]}/>)}
+            {containers["Instrument"].map(c => <ARTag key={c.ar_buttonid} section={c.section} feature={c.feature} image={c.image} primarytags={props.primarytags} secondarydict={props.secondarydict}
+            info={containers["carsIAR"][c.feature]}/>)}
           </div>
           <div style={{display: tab !== 2 ? 'none' : 'block'}}>
-            {Entertainment.map(c => <ARTag key={c.ar_buttonid} section={c.section} feature={c.feature} image={c.image} primarytags={props.primarytags} secondarydict={props.secondarydict}
-            info={carsEAR[c.feature]}/>)}
+            {containers["Entertainment"].map(c => <ARTag key={c.ar_buttonid} section={c.section} feature={c.feature} image={c.image} primarytags={props.primarytags} secondarydict={props.secondarydict}
+            info={containers["carsEAR"][c.feature]}/>)}
           </div>   
         </Box> 
       </div>
