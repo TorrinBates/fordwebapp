@@ -39,15 +39,6 @@ const addCarStyles = makeStyles(theme => ({
   },
 }));
 
-var valid = {"Make": false, "Model": false, "Year": false}
-
-function resetDict() {
-  for (const prop in valid)
-  {
-    valid[prop] = false;
-  }
-}
-
 export default function AddCar(props) {
 
   const classes = addCarStyles();
@@ -57,20 +48,22 @@ export default function AddCar(props) {
   const [make, setMake] = useState("");
   const [model, setModel] = useState("");
   const [year, setYear] = useState("");
+  const [valid, setValid] = useState({"Make": false, "Model": false, "Year": false});
   let history = useHistory();
 
   let checkComplete = (dic) => {
     var key = Object.keys(dic)[0];
+    var v = valid;
     if (dic[key] !== "")
     {
-      valid[key] = true;
+      v[key] = true;
     }
     else
     {
-      valid[key] = false;
+      v[key] = false;
     }
 
-    if (valid["Make"] && valid["Model"] && valid["Year"])
+    if (v["Make"] && v["Model"] && v["Year"])
     {
       setDisabled(false);
     }
@@ -78,6 +71,7 @@ export default function AddCar(props) {
     {
       setDisabled(true);
     }
+    setValid(v);
   };
   let updateMake = (e) => {
     var value = e.target.value;
@@ -95,7 +89,6 @@ export default function AddCar(props) {
     checkComplete({"Year": value});
   };
   let home = () => {
-    resetDict();
     history.push("/dashboard");
   };
   let submit = () => {

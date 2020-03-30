@@ -116,8 +116,15 @@ export default function Tag(props) {
   const [secondaryId, setSecondaryId] = useState(null);
   const [locationId, setLocationId] = useState(null);
 
+  let updateDict = () => {
+    var copy = props.getCurrent;
+    copy[props.feature] = {"enabled": enabled, "location": locationId, "primaryTag": primaryId,
+     "secondaryTag": secondaryId, "arButtonId": props.key};
+    props.update(copy);
+  };
   const handleChange = event => {
     setEnabled(!enabled);
+    updateDict();
   };
   let selectPrimary = (opt) => {
     setPrimaryId(opt);
@@ -130,12 +137,15 @@ export default function Tag(props) {
       secondarytags = [];
     }
     setSecondaryId(null);
+    updateDict();
   }
   let selectSecondary = (opt) => {
     setSecondaryId(opt);
+    updateDict();
   }
   let selectLocation = (opt) => {
     setLocationId(opt);
+    updateDict();
   }
   if (value)
   {

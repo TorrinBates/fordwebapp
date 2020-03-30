@@ -66,15 +66,6 @@ const mediaStyles = makeStyles(theme => ({
   },
 }));
 
-var valid = {"PrimaryId": false, "Type": false, "MediaLabel": false, "Link": false}
-
-function resetDict() {
-  for (const prop in valid)
-  {
-    valid[prop] = false;
-  }
-}
-
 const mediaOptions = [{ value: "Video", label: "Video" },{ value: "FAQ", label: "FAQ" }];
 var secondarytags = [];
 
@@ -90,20 +81,22 @@ export default function AddMedia(props) {
   const [type, setType] = useState(null);
   const [medialabel, setMediaLabel] = useState("");
   const [link, setLink] = useState("");
+  const [valid, setValid] = useState({"PrimaryId": false, "Type": false, "MediaLabel": false, "Link": false});
   let history = useHistory();
 
   let checkComplete = (dic) => {
     var key = Object.keys(dic)[0];
+    var v = valid;
     if (dic[key] !== "")
     {
-      valid[key] = true;
+      v[key] = true;
     }
     else
     {
-      valid[key] = false;
+      v[key] = false;
     }
 
-    if (valid["PrimaryId"] && valid["Type"] && valid["MediaLabel"] && valid["Link"])
+    if (v["PrimaryId"] && v["Type"] && v["MediaLabel"] && v["Link"])
     {
       setDisabled(false);
     }
@@ -111,6 +104,7 @@ export default function AddMedia(props) {
     {
       setDisabled(true);
     }
+    setValid(v);
   };
   let updateMediaLabel = (e) => {
     var v = e.target.value;
@@ -123,7 +117,6 @@ export default function AddMedia(props) {
     checkComplete({"Link": v});
   };
   let backMedia = () => {
-    resetDict();
     history.goBack();
   }
   let selectPrimary = (opt) => {

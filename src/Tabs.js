@@ -62,14 +62,17 @@ const StyledTab = withStyles({
 })(Tab);
 
 export default function ARTabs(props) {
+
   const classes = useStyles();
   const [tab, setTab] = useState(0);
   const [value, setValue] = useState(true);
   const [containers, setContainers] = useState({"carsSAR": {}, "carsEAR": {}, "carsIAR": {}, "Steering": [], "Entertainment": [], "Instrument": []});
+  const [data, setData] = useState({});
 
   const handleChange = (event, newTab) => {
     setTab(newTab);
   };
+
   let getAR = async event => {
     try {
       let response = await fetch('https://pmd374kj6j.execute-api.us-east-2.amazonaws.com/prod/ar-button');
@@ -123,10 +126,15 @@ export default function ARTabs(props) {
     setValue(false);
   }
 
+  let save = () => {
+    console.log(data);
+  };
+
   if (value)
   {
     getAR();
   }
+
 
   return (
     !value &&
@@ -138,21 +146,21 @@ export default function ARTabs(props) {
             <StyledTab label="Instrument Cluster" {...a11yProps(1)} />
             <StyledTab label="Entertainment System" {...a11yProps(2)} />
             <Box flexGrow={1}/>
-            <Button className={classes.save}> Save </Button>
+            <Button onClick={save} className={classes.save}> Save </Button>
           </Tabs>
         </AppBar>
         <Box p={3}>
           <div style={{display: tab !== 0 ? 'none' : 'block'}}>
             {containers["Steering"].map(c => <ARTag key={c.ar_buttonid} section={c.section} feature={c.feature} image={c.image} primarytags={props.primarytags} secondarydict={props.secondarydict}
-            info={containers["carsSAR"][c.feature]}/>)}
+            info={containers["carsSAR"][c.feature]} update={setData} getCurrent={data}/>)}
           </div>
           <div style={{display: tab !== 1 ? 'none' : 'block'}}>
             {containers["Instrument"].map(c => <ARTag key={c.ar_buttonid} section={c.section} feature={c.feature} image={c.image} primarytags={props.primarytags} secondarydict={props.secondarydict}
-            info={containers["carsIAR"][c.feature]}/>)}
+            info={containers["carsIAR"][c.feature]} update={setData} getCurrent={data}/>)}
           </div>
           <div style={{display: tab !== 2 ? 'none' : 'block'}}>
             {containers["Entertainment"].map(c => <ARTag key={c.ar_buttonid} section={c.section} feature={c.feature} image={c.image} primarytags={props.primarytags} secondarydict={props.secondarydict}
-            info={containers["carsEAR"][c.feature]}/>)}
+            info={containers["carsEAR"][c.feature]} update={setData} getCurrent={data}/>)}
           </div>   
         </Box> 
       </div>
