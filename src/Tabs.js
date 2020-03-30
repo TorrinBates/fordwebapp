@@ -61,19 +61,20 @@ const StyledTab = withStyles({
     },
 })(Tab);
 
-var Steering = [];
-var Instrument = [];
-var Entertainment = [];
-
 export default function ARTabs(props) {
   const classes = useStyles();
   const [tab, setTab] = useState(0);
   const [value, setValue] = useState(true);
+  const [carsSAR, setCarsSAR] = useState({});
+  const [carsEAR, setCarsEAR] = useState({});
+  const [carsIAR, setCarsIAR] = useState({});
+  const [Steering, setSteering] = useState([]);
+  const [Entertainment, setEntertainment] = useState([]);
+  const [Instrument, setInstrument] = useState([]);
 
   const handleChange = (event, newTab) => {
     setTab(newTab);
   };
-
   let getAR = async event => {
     try {
       let response = await fetch('https://pmd374kj6j.execute-api.us-east-2.amazonaws.com/prod/ar-button');
@@ -97,20 +98,49 @@ export default function ARTabs(props) {
           itags.push(tag);
         }
       }
-
-      Steering = stags;
-      Entertainment = etags;
-      Instrument = itags;
-      setValue(false);
+      setSteering(stags);
+      setEntertainment(etags);
+      setInstrument(itags);
      }
     catch(error) {}
+    try {
+      let response = await fetch('https://pmd374kj6j.execute-api.us-east-2.amazonaws.com/prod/car/ar?carid='+props.carid.toString());
+      let responseJson = await response.json();
+      
+      const carssar = {};
+      const carsiar = {};
+      const carsear = {};
+      for (var tag of responseJson) 
+      {
+        if (tag.section === "Steering Wheel")
+        {
+          carssar[tag.feature] = tag;
+        }
+        else if (tag.section === "Entertainment System")
+        {
+          carsear[tag.feature] = tag;
+        }
+        else if (tag.section === "Instrument Cluster")
+        {
+          carsiar[tag.feature] = tag;
+        }
+      }
+      setCarsSAR(carssar);
+      setCarsEAR(carsear);
+      setCarsIAR(carsiar);
+     }
+    catch(error) {}
+    setValue(false);
   }
+
   if (value)
   {
+    console.log("hit");
     getAR();
   }
 
   return (
+    !value &&
     <MuiThemeProvider theme={theme}>
       <div className={classes.root}>
         <AppBar position="static" className={classes.app}>
@@ -124,13 +154,16 @@ export default function ARTabs(props) {
         </AppBar>
         <Box p={3}>
           <div style={{display: tab !== 0 ? 'none' : 'block'}}>
-            {Steering.map(c => <ARTag key={c.ar_buttonid} section={c.section} feature={c.feature} image={c.image} primarytags={props.primarytags} secondarydict={props.secondarydict}/>)}
+            {Steering.map(c => <ARTag key={c.ar_buttonid} section={c.section} feature={c.feature} image={c.image} primarytags={props.primarytags} secondarydict={props.secondarydict}
+            info={carsSAR[c.feature]}/>)}
           </div>
           <div style={{display: tab !== 1 ? 'none' : 'block'}}>
-            {Instrument.map(c => <ARTag key={c.ar_buttonid} section={c.section} feature={c.feature} image={c.image} primarytags={props.primarytags} secondarydict={props.secondarydict}/>)}
+            {Instrument.map(c => <ARTag key={c.ar_buttonid} section={c.section} feature={c.feature} image={c.image} primarytags={props.primarytags} secondarydict={props.secondarydict}
+            info={carsIAR[c.feature]}/>)}
           </div>
           <div style={{display: tab !== 2 ? 'none' : 'block'}}>
-            {Entertainment.map(c => <ARTag key={c.ar_buttonid} section={c.section} feature={c.feature} image={c.image} primarytags={props.primarytags} secondarydict={props.secondarydict}/>)}
+            {Entertainment.map(c => <ARTag key={c.ar_buttonid} section={c.section} feature={c.feature} image={c.image} primarytags={props.primarytags} secondarydict={props.secondarydict}
+            info={carsEAR[c.feature]}/>)}
           </div>   
         </Box> 
       </div>

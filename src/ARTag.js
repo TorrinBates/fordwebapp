@@ -76,6 +76,7 @@ const useStyles = makeStyles(theme => ({
         marginRight: theme.spacing(2),
     },
     Txt: {
+        width: '17%',
         fontSize: 18,
         marginRight: theme.spacing(2),
     },
@@ -86,8 +87,8 @@ const useStyles = makeStyles(theme => ({
       },
 }));
 
-const steeringLocos = [{ value: "Top Right", label: "Top Right"},{ value: "Middle Right", label: "Middle Right"},{ value: "Bottom Right", label: "Bottom Right"},
-{ value: "Top Left", label: "Top Left"},{ value: "Middle Left", label: "Middle Left"},{ value: "Bottom Left", label: "Bottom Left"}];
+const steeringLocos = [{ value: "Right Top", label: "Right Top"},{ value: "Right Middle", label: "Right Middle"},{ value: "Right Bottom", label: "Right Bottom"},
+{ value: "Left Top", label: "Left Top"},{ value: "Left Middle", label: "Left Middle"},{ value: "Left Bottom", label: "Left Bottom"}];
 const instrumentLocos = [{ value: "Video", label: "Video" }];
 const entertainmentLocos = [{ value: "Video", label: "Video" },{ value: "FAQ", label: "FAQ" }];
 var secondarytags = [];
@@ -109,12 +110,14 @@ export default function Tag(props) {
     locations = entertainmentLocos;
   }
   const classes = useStyles();
+  const [value, setValue] = useState(true);
   const [enabled, setEnabled] = useState(false);
   const [primaryId, setPrimaryId] = useState(null);
   const [secondaryId, setSecondaryId] = useState(null);
   const [locationId, setLocationId] = useState(null);
+
   const handleChange = event => {
-      setEnabled(!enabled);
+    setEnabled(!enabled);
   };
   let selectPrimary = (opt) => {
     setPrimaryId(opt);
@@ -129,21 +132,48 @@ export default function Tag(props) {
     setSecondaryId(null);
   }
   let selectSecondary = (opt) => {
-      setSecondaryId(opt);
+    setSecondaryId(opt);
   }
   let selectLocation = (opt) => {
     setLocationId(opt);
   }
+  if (value)
+  {
+    if (props.info != null)
+    {
+      setEnabled(props.info.enabled);
+      for (var tag in props.primarytags)
+      {
+        if (props.primarytags[tag]["value"] === props.info.primarytag)
+        {
+          selectPrimary(props.primarytags[tag]);
+        }
+      }
+      if (props.info.secondarytag !== null)
+      {
+        for (var tag in secondarytags)
+        {
+          if (secondarytags[tag]["value"] === props.info.secondarytag)
+          {
+            selectSecondary(secondarytags[tag]);
+          }
+        }
+      }
+      setLocationId({ value: props.info.location, label: props.info.location});
+    }
+    setValue(false);
+  }
 
   return (
-      <Box display="flex" alignItems="center" className={classes.Parent}>
-          <img width="50" height="50" src={props.image} className={classes.Img} alt="AR Button."/>
-          <b className={classes.Txt}>{props.feature}:</b>
-          <Box flexGrow={1}/>
-          <IOSSwitch checked={enabled} onChange={handleChange} name="enabledSlider" />
-          <Select options={props.primarytags} onChange={opt => selectPrimary(opt)} value={primaryId} isClearable={true} styles={customStyles} className={classes.Dropdown}/>
-          <Select options={secondarytags} onChange={opt => selectSecondary(opt)} value={secondaryId} isClearable={true} styles={customStyles} className={classes.Dropdown}/>
-          <Select options={locations} onChange={opt => selectLocation(opt)} value={locationId} isClearable={true} styles={customStyles} className={classes.Dropdown}/>
-      </Box>
+    !value && 
+    <Box display="flex" alignItems="center" className={classes.Parent}>
+      <img width="50" height="50" src={props.image} className={classes.Img} alt="AR Button."/>
+      <b className={classes.Txt}>{props.feature}:</b>
+      <Box flexGrow={1}/>
+      <IOSSwitch checked={enabled} onChange={handleChange} name="enabledSlider" />
+      <Select options={props.primarytags} onChange={opt => selectPrimary(opt)} value={primaryId} isClearable={true} styles={customStyles} className={classes.Dropdown}/>
+      <Select options={secondarytags} onChange={opt => selectSecondary(opt)} value={secondaryId} isClearable={true} styles={customStyles} className={classes.Dropdown}/>
+      <Select options={locations} onChange={opt => selectLocation(opt)} value={locationId} isClearable={true} styles={customStyles} className={classes.Dropdown}/>
+    </Box>
   );
 }

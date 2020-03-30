@@ -92,7 +92,7 @@ export default function CarInfo(props) {
         </Button>
         <MediaTable carid={props.location.state.carid}/>
       </Grid>
-      <ARTabs primarytags={primarytags} secondarydict={secondarydict}/>
+      <ARTabs primarytags={primarytags} secondarydict={secondarydict} carid={props.location.state.carid}/>
     </MuiThemeProvider>
   );
 }
