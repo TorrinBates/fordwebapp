@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import { MuiThemeProvider, createMuiTheme, makeStyles, withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { Button } from '@material-ui/core';
 import ARTag from './ARTag';
+import { Auth } from 'aws-amplify';
 
 const theme = createMuiTheme({
   palette: {
@@ -127,7 +126,38 @@ export default function ARTabs(props) {
   }
 
   let save = () => {
-    console.log(data);
+    var payload = [];
+    for (var key of Object.keys(data))
+    {
+      if (data[key]["location"] != null && data[key]["primaryTag"] != null)
+      {
+        data[key]["location"] = data[key]["location"].value;
+        data[key]["primaryTag"] = data[key]["primaryTag"].value;
+        data[key]["secondaryTag"] = (data[key]["secondaryTag"] == null ? null : data[key]["secondaryTag"].value);
+        payload.push(data[key]);
+      }
+    }
+    console.log(payload);
+    Auth.currentSession().then(async res=>{
+      let idToken = res.getIdToken();
+      let jwt = idToken.getJwtToken();
+
+      await fetch('https://pmd374kj6j.execute-api.us-east-2.amazonaws.com/prod/car/ar', {
+        method: 'POST',
+        headers: {
+          'Authorization': jwt
+        },
+        body: JSON.stringify(payload)
+      }).then(function(response) {
+        if (!response.ok) { throw Error(response.statusText); }
+        return response;
+      }).then(function() {
+        //finished
+        setData({});
+      }).catch(function() {
+        //error
+      });
+    })
   };
 
   if (value)
@@ -151,15 +181,15 @@ export default function ARTabs(props) {
         </AppBar>
         <Box p={3}>
           <div style={{display: tab !== 0 ? 'none' : 'block'}}>
-            {containers["Steering"].map(c => <ARTag key={c.ar_buttonid} section={c.section} feature={c.feature} image={c.image} primarytags={props.primarytags} secondarydict={props.secondarydict}
+            {containers["Steering"].map(c => <ARTag key={c.ar_buttonid} cid={props.carid} bid={c.ar_buttonid} section={c.section} feature={c.feature} image={c.image} primarytags={props.primarytags} secondarydict={props.secondarydict}
             info={containers["carsSAR"][c.feature]} update={setData} getCurrent={data}/>)}
           </div>
           <div style={{display: tab !== 1 ? 'none' : 'block'}}>
-            {containers["Instrument"].map(c => <ARTag key={c.ar_buttonid} section={c.section} feature={c.feature} image={c.image} primarytags={props.primarytags} secondarydict={props.secondarydict}
+            {containers["Instrument"].map(c => <ARTag key={c.ar_buttonid} cid={props.carid} bid={c.ar_buttonid} section={c.section} feature={c.feature} image={c.image} primarytags={props.primarytags} secondarydict={props.secondarydict}
             info={containers["carsIAR"][c.feature]} update={setData} getCurrent={data}/>)}
           </div>
           <div style={{display: tab !== 2 ? 'none' : 'block'}}>
-            {containers["Entertainment"].map(c => <ARTag key={c.ar_buttonid} section={c.section} feature={c.feature} image={c.image} primarytags={props.primarytags} secondarydict={props.secondarydict}
+            {containers["Entertainment"].map(c => <ARTag key={c.ar_buttonid} cid={props.carid} bid={c.ar_buttonid} section={c.section} feature={c.feature} image={c.image} primarytags={props.primarytags} secondarydict={props.secondarydict}
             info={containers["carsEAR"][c.feature]} update={setData} getCurrent={data}/>)}
           </div>   
         </Box> 
