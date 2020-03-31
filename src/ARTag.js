@@ -91,7 +91,6 @@ const steeringLocos = [{ value: "Right Top", label: "Right Top"},{ value: "Right
 { value: "Left Top", label: "Left Top"},{ value: "Left Middle", label: "Left Middle"},{ value: "Left Bottom", label: "Left Bottom"}];
 const instrumentLocos = [{ value: "Video", label: "Video" }];
 const entertainmentLocos = [{ value: "Video", label: "Video" },{ value: "FAQ", label: "FAQ" }];
-var secondarytags = [];
 
 export default function Tag(props) {
 
@@ -115,6 +114,8 @@ export default function Tag(props) {
   const [primaryId, setPrimaryId] = useState(null);
   const [secondaryId, setSecondaryId] = useState(null);
   const [locationId, setLocationId] = useState(null);
+  const [secondarytags, setsecondarytags] = useState([]);
+
 
   let updateDict = (key,value) => {
     var copy = props.getCurrent;
@@ -132,11 +133,11 @@ export default function Tag(props) {
     setPrimaryId(opt);
     if (opt != null)
     {
-      secondarytags = secondarydict[opt.value];
+      setsecondarytags(secondarydict[opt.value]);
     }
     else
     {
-      secondarytags = [];
+      setsecondarytags([]);
     }
     setSecondaryId(null);
     updateDict("primaryTag", opt);
@@ -161,11 +162,11 @@ export default function Tag(props) {
           setPrimaryId(props.primarytags[tag]);
           if (props.primarytags[tag] != null)
           {
-            secondarytags = secondarydict[props.primarytags[tag].value];
+            setsecondarytags(secondarydict[props.primarytags[tag].value]);
           }
           else
           {
-            secondarytags = [];
+            setsecondarytags([]);
           }
           setSecondaryId(null);
         }
