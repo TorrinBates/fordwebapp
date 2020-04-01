@@ -89,8 +89,10 @@ const useStyles = makeStyles(theme => ({
 
 const steeringLocos = [{ value: "Right Top", label: "Right Top"},{ value: "Right Middle", label: "Right Middle"},{ value: "Right Bottom", label: "Right Bottom"},
 { value: "Left Top", label: "Left Top"},{ value: "Left Middle", label: "Left Middle"},{ value: "Left Bottom", label: "Left Bottom"}];
-const instrumentLocos = [{ value: "Video", label: "Video" }];
-const entertainmentLocos = [{ value: "Video", label: "Video" },{ value: "FAQ", label: "FAQ" }];
+const instrumentLocos = [{ value: "Outer Left", label: "Outer Left" },{ value: "Inner Left", label: "Inner Left" },{ value: "Inner Right", label: "Inner Right" },
+{ value: "Outer Right", label: "Outer Right" }];
+const entertainmentLocos = [{ value: "Top Left", label: "Top Left"},{ value: "Top Middle", label: "Top Middle"},{ value: "Top Right", label: "Top Right"},
+{ value: "Bottom Left", label: "Bottom Left"},{ value: "Bottom Middle", label: "Bottom Middle"},{ value: "Bottom Right", label: "Bottom Right"}];
 
 export default function Tag(props) {
 
@@ -102,11 +104,11 @@ export default function Tag(props) {
   }
   else if (props.section === "Entertainment System")
   {
-    locations = instrumentLocos;
+    locations = entertainmentLocos;
   }
   else if (props.section === "Instrument Cluster")
   {
-    locations = entertainmentLocos;
+    locations = instrumentLocos;
   }
   const classes = useStyles();
   const [value, setValue] = useState(true);
