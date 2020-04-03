@@ -156,6 +156,7 @@ export default function Tag(props) {
   {
     if (props.info != null)
     {
+      var temp;
       setEnabled(props.info.enabled);
       for (var tag in props.primarytags)
       {
@@ -165,6 +166,7 @@ export default function Tag(props) {
           if (props.primarytags[tag] != null)
           {
             setsecondarytags(secondarydict[props.primarytags[tag].value]);
+            temp = secondarydict[props.primarytags[tag].value]
           }
           else
           {
@@ -175,11 +177,11 @@ export default function Tag(props) {
       }
       if (props.info.secondarytag !== null)
       {
-        for (var tag in secondarytags)
+        for (var tag in temp)
         {
-          if (secondarytags[tag]["value"] === props.info.secondarytag)
+          if (temp[tag]["value"] === props.info.secondarytag)
           {
-            selectSecondary(secondarytags[tag]);
+            selectSecondary(temp[tag]);
           }
         }
       }

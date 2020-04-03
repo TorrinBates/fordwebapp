@@ -137,7 +137,6 @@ export default function ARTabs(props) {
         payload.push(data[key]);
       }
     }
-    console.log(payload);
     Auth.currentSession().then(async res=>{
       let idToken = res.getIdToken();
       let jwt = idToken.getJwtToken();
