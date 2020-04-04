@@ -118,7 +118,6 @@ export default function Tag(props) {
   const [locationId, setLocationId] = useState(null);
   const [secondarytags, setsecondarytags] = useState([]);
 
-
   let updateDict = (key,value) => {
     var copy = props.getCurrent;
     copy[props.feature] = {"carId": props.cid, "enabled": enabled, "location": locationId, "primaryTag": primaryId,
@@ -135,7 +134,6 @@ export default function Tag(props) {
     setPrimaryId(opt);
     if (opt != null)
     {
-      console.log();
       setsecondarytags(secondarydict[opt.value]);
     }
     else
@@ -182,7 +180,7 @@ export default function Tag(props) {
         {
           if (temp[tag]["value"] === props.info.secondarytag)
           {
-            selectSecondary(temp[tag]);
+            setSecondaryId(temp[tag]);
           }
         }
       }
