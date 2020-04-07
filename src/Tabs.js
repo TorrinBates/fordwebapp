@@ -7,6 +7,7 @@ import Box from '@material-ui/core/Box';
 import { Button } from '@material-ui/core';
 import ARTag from './ARTag';
 import { Auth } from 'aws-amplify';
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 
 const theme = createMuiTheme({
   palette: {
@@ -47,6 +48,14 @@ const useStyles = makeStyles(theme => ({
     '&:hover': {
       backgroundColor: '#C91717',
       borderColor: '#C91717',
+      color: '#FFFFFF'
+    },
+  },
+  help: {
+    margin: theme.spacing(2, 0, 1, 0),
+    color: '#03315c',
+    borderColor: '#03315c',
+    '&:hover': {
       color: '#FFFFFF'
     },
   }
@@ -163,7 +172,22 @@ export default function ARTabs(props) {
   {
     getAR();
   }
-
+  var help;
+  var strhelp = "https://ar-button-images.s3.us-east-2.amazonaws.com/SteeringWheelHelp.svg";
+  var inscluhelp = "https://ar-button-images.s3.us-east-2.amazonaws.com/InstrumentClusterHelp.svg";
+  var entsyshelp = "https://ar-button-images.s3.us-east-2.amazonaws.com/EntertainmentSystemHelp.svg";
+  if (tab === 0)
+  {
+    help = strhelp;
+  }
+  else if (tab === 1)
+  {
+    help = inscluhelp;
+  }
+  else if (tab === 2)
+  {
+    help = entsyshelp;
+  }
 
   return (
     !value &&
@@ -175,6 +199,9 @@ export default function ARTabs(props) {
             <StyledTab label="Instrument Cluster" {...a11yProps(1)} />
             <StyledTab label="Entertainment System" {...a11yProps(2)} />
             <Box flexGrow={1}/>
+            <a rel="noopener noreferrer" href={help} target="_blank" className={classes.help}>
+              <HelpOutlineIcon fontSize="large"/>
+            </a>
             <Button onClick={save} className={classes.save}> Save </Button>
           </Tabs>
         </AppBar>
