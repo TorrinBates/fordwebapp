@@ -196,9 +196,9 @@ export default function Tag(props) {
       <b className={classes.Txt}>{props.feature}:</b>
       <Box flexGrow={1}/>
       <IOSSwitch checked={enabled} onChange={handleChange} name="enabledSlider" />
-      <Select options={props.primarytags} onChange={opt => selectPrimary(opt)} placeholder='Select Primary Tag...' value={primaryId} isClearable={true} styles={customStyles} className={classes.Dropdown}/>
-      <Select options={secondarytags} onChange={opt => selectSecondary(opt)} placeholder='Select Secondary Tag...' value={secondaryId} isClearable={true} styles={customStyles} className={classes.Dropdown}/>
-      <Select options={locations} onChange={opt => selectLocation(opt)} placeholder='Select Location...' value={locationId} isClearable={true} styles={customStyles} className={classes.Dropdown}/>
+      <Select maxMenuHeight={150} options={props.primarytags} onChange={opt => selectPrimary(opt)} placeholder='Select Primary Tag...' value={primaryId} isClearable={true} styles={customStyles} className={classes.Dropdown}/>
+      <Select maxMenuHeight={150} options={secondarytags} onChange={opt => selectSecondary(opt)} placeholder='Select Secondary Tag...' value={secondaryId} isClearable={true} styles={customStyles} className={classes.Dropdown}/>
+      <Select maxMenuHeight={150} options={locations} onChange={opt => selectLocation(opt)} placeholder='Select Location...' value={locationId} isClearable={true} styles={customStyles} className={classes.Dropdown}/>
     </Box>
   );
 }

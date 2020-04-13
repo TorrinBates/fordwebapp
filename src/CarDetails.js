@@ -29,6 +29,10 @@ const dashStyles = makeStyles(theme => ({
     margin: theme.spacing(1, 0, 1, 0),
     fontSize: 22,
   },
+  Bot: {
+    backgroundColor: '#FAFAFA',
+    height: 82,
+  }
 }));
 
 function createData(label, value) {
@@ -93,6 +97,7 @@ export default function CarInfo(props) {
         <MediaTable carid={props.location.state.carid}/>
       </Grid>
       <ARTabs primarytags={primarytags} secondarydict={secondarydict} carid={props.location.state.carid}/>
+      <div className={classes.Bot}/>
     </MuiThemeProvider>
   );
 }
