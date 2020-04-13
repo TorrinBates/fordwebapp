@@ -25,11 +25,11 @@ const useStyles = makeStyles(theme => ({
       },
     },
     img: {
-      margin: theme.spacing(3, 3, 3, 3),
+      margin: theme.spacing(0, 3, 0, 3),
     }
   }));
 
-function SimpleDialog(props) {
+function ImageDialog(props) {
   const classes = useStyles();
   const { onClose, img, open } = props;
 
@@ -39,18 +39,18 @@ function SimpleDialog(props) {
 
   return (
     <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
-      <img src={img} className={classes.img} />
+      <img src={img} className={classes.img} height="600" width="552"/>
     </Dialog>
   );
 }
 
-SimpleDialog.propTypes = {
+ImageDialog.propTypes = {
   onClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
   img: PropTypes.string.isRequired,
 };
 
-export default function SimpleDialogDemo(props) {
+export default function HelpPopup(props) {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
 
@@ -67,7 +67,7 @@ export default function SimpleDialogDemo(props) {
             <IconButton onClick={handleClickOpen} className={classes.button}>
                 <HelpOutlineIcon fontSize="large" className={classes.help}/>
             </IconButton>
-            <SimpleDialog img={props.help} open={open} onClose={handleClose} />
+            <ImageDialog img={props.help} open={open} onClose={handleClose} />
         </div>
     );
 }
