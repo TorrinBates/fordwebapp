@@ -7,7 +7,7 @@ import Box from '@material-ui/core/Box';
 import { Button } from '@material-ui/core';
 import ARTag from './ARTag';
 import { Auth } from 'aws-amplify';
-import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import Popup from './Popup';
 
 const theme = createMuiTheme({
   palette: {
@@ -35,6 +35,7 @@ const useStyles = makeStyles(theme => ({
   app: {
     backgroundColor: '#0055A5',
     fontSize: 22,
+    boxShadow: '0',
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
   },
@@ -51,14 +52,6 @@ const useStyles = makeStyles(theme => ({
       color: '#FFFFFF'
     },
   },
-  help: {
-    margin: theme.spacing(2, 0, 1, 0),
-    color: '#03315c',
-    borderColor: '#03315c',
-    '&:hover': {
-      color: '#FFFFFF'
-    },
-  }
 }));
 
 const StyledTab = withStyles({
@@ -193,15 +186,13 @@ export default function ARTabs(props) {
     !value &&
     <MuiThemeProvider theme={theme}>
       <div className={classes.root}>
-        <AppBar position="static" className={classes.app}>
-          <Tabs value={tab} indicatorColor="primary" onChange={handleChange} aria-label="AR Tagging Tabs">
+        <AppBar position="static" className={classes.app} elevation={0} >
+          <Tabs value={tab} indicatorColor="primary" onChange={handleChange} aria-label="AR Tagging Tabs" boxShadow={0}>
             <StyledTab label="Steering Wheel" {...a11yProps(0)} />
             <StyledTab label="Instrument Cluster" {...a11yProps(1)} />
             <StyledTab label="Entertainment System" {...a11yProps(2)} />
             <Box flexGrow={1}/>
-            <a rel="noopener noreferrer" href={help} target="_blank" className={classes.help}>
-              <HelpOutlineIcon fontSize="large"/>
-            </a>
+            <Popup help={help}/>
             <Button onClick={save} className={classes.save}> Save </Button>
           </Tabs>
         </AppBar>
