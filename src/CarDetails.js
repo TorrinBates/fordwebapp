@@ -3,7 +3,6 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import {useHistory} from 'react-router-dom';
 import { MuiThemeProvider, createMuiTheme, makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Header from './Header';
 import MediaTable from './MediaTable'
@@ -20,7 +19,8 @@ const the = createMuiTheme({
 
 const dashStyles = makeStyles(theme => ({
   Container: {
-    marginTop: theme.spacing(0),
+    marginTop: theme.spacing(7),
+    marginBottom: theme.spacing(15),
     marginRight: theme.spacing(17),
     marginLeft: theme.spacing(17)
   },

@@ -16,7 +16,7 @@ const dashStyles = makeStyles(theme => ({
     Outer: {
         borderRadius: 20,
         boxShadow: '0 3px 5px 2px #C2C1C1',
-        margin: theme.spacing(5, 9, 2, 9),
+        margin: theme.spacing(10, 9, 2, 9),
         overflow: 'hidden'
     },
     CarDiv: {
