@@ -28,7 +28,7 @@ const useStyles = makeStyles( theme => ({
     },
     CarText: {
         color: '#000000',
-        fontSize: 24
+        fontSize: '1.5vw',
     }
   }));
 

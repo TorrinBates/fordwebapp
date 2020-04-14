@@ -49,7 +49,7 @@ const dashStyles = makeStyles(theme => ({
         width: 'auto',
     },
     Txt: {
-        fontSize: 24,
+        fontSize: '2vw',
         textAlign: 'center',
     },
     BoxSmall: {
