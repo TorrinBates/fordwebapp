@@ -32,6 +32,9 @@ const useStyles = makeStyles( theme => ({
     }
   }));
 
+/*
+Car component thats shown on the dashboard
+*/
 export default function Car(props) {
     const classes = useStyles();
     return (

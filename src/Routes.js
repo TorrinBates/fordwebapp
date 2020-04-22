@@ -9,6 +9,9 @@ import PageNotFound from "./PageNotFound";
 import AuthenticatedRoute from "./AuthenticatedRoute";
 import UnauthenticatedRoute from "./UnauthenticatedRoute";
 
+/*
+All of the different routes/pages throughout this web app
+*/
 export default function Routes({ appProps }) {
   return (
     <Switch>

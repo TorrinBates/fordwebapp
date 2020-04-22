@@ -27,11 +27,16 @@ const dashStyles = makeStyles(theme => ({
   },
 }));
 
+/*
+Page representing the dashboard that lists all of the currently supported vehicles.
+*/
 export default function Dashboard(props) {
 
   const classes = dashStyles();
 
   let history = useHistory();
+  
+  // redirects you to the add car page
   let addcar = () => {
     history.push("/addcar");
   };

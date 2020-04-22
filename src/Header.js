@@ -36,10 +36,14 @@ const headerStyles = makeStyles(theme => ({
   }
 }));
 
+/*
+Header component that is located on the top of every page on the web app that allows the user to redirect to the dashboard or sign out.
+*/
 export default function Header(props) {
 
   const classes = headerStyles();
 
+  // Signs the user out and redirects them to the sign-in page.
   let signout = async event => {
 		event.preventDefault();
 
@@ -50,6 +54,7 @@ export default function Header(props) {
   }
   };
 
+  // Redirects to the dashboard page
   let history = useHistory();
   let home = () => {
     history.push("/dashboard");

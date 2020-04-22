@@ -1,3 +1,7 @@
+/*
+Used for animating our spinner on Add Car
+*/
+
 import  { keyframes } from 'styled-components';
 const $InColor = '#03a1fc';
 const Rotate = keyframes`

@@ -69,6 +69,9 @@ const mediaStyles = makeStyles(theme => ({
 const mediaOptions = [{ value: "Video", label: "Video" },{ value: "FAQ", label: "FAQ" }];
 var secondarytags = [];
 
+/*
+This component builds out our Add Media Page.
+*/
 export default function AddMedia(props) {
 
   var primarytags = props.location.state.primarytags;
@@ -84,6 +87,7 @@ export default function AddMedia(props) {
   const [valid, setValid] = useState({"PrimaryId": false, "Type": false, "MediaLabel": false, "Link": false});
   let history = useHistory();
 
+  // This method checks if the form is complete after each key stroke or entry
   let checkComplete = (dic) => {
     var key = Object.keys(dic)[0];
     var v = valid;
@@ -119,12 +123,13 @@ export default function AddMedia(props) {
   let backMedia = () => {
     history.goBack();
   }
+  // sets the state of the primary tag as well as sets the current options for secondary tags.
   let selectPrimary = (opt) => {
     setPrimaryId(opt);
     if (opt != null)
     {
       secondarytags = secondarydict[opt.value];
-      checkComplete({"PrimaryId": "Good"});
+      checkComplete({"PrimaryId": "Valid"});
     }
     else
     {
@@ -140,13 +145,14 @@ export default function AddMedia(props) {
     setType(opt);
     if (opt != null)
     {
-      checkComplete({"Type": "Good"});
+      checkComplete({"Type": "Valid"});
     }
     else
     {
       checkComplete({"Type": ""});
     }
   }
+  //Uses authentication token to write the current media information to the database via API
   let submit = () => {
     Auth.currentSession().then(async res=>{
       let idToken = res.getIdToken();
@@ -175,6 +181,7 @@ export default function AddMedia(props) {
       });
     })
   }
+  // Closes the error toast
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;

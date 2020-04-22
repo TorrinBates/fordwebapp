@@ -46,8 +46,12 @@ const ItemFour = styled(Item)`
   animation: ${ props => animateFour(props.color || '#00adb5')} ${props => props.speed / 4 || 2}s infinite ease-in-out;
 `;
 
+/*
+Spinner component that is used when a car is added
+*/
 const BlockLoading = ({isHidden, speed, size="default", color }) => {
 
+  // makes the component hidden till the state changes to false
   const style = isHidden ? {margin: 'auto', display: 'none'} : {margin: 'auto'};
 
   return (

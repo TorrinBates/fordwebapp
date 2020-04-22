@@ -94,6 +94,9 @@ const instrumentLocos = [{ value: "Outer Left", label: "Outer Left" },{ value: "
 const entertainmentLocos = [{ value: "Top Left", label: "Top Left"},{ value: "Top Middle", label: "Top Middle"},{ value: "Top Right", label: "Top Right"},
 { value: "Bottom Left", label: "Bottom Left"},{ value: "Bottom Middle", label: "Bottom Middle"},{ value: "Bottom Right", label: "Bottom Right"}];
 
+/*
+This is the component that makes up all of the tabs content on the ARTagging component.
+*/
 export default function Tag(props) {
 
   var secondarydict = props.secondarydict;
@@ -118,6 +121,7 @@ export default function Tag(props) {
   const [locationId, setLocationId] = useState(null);
   const [secondarytags, setsecondarytags] = useState([]);
 
+  // used to update the changes from the ARtag to the Tabs component that actually saves the changes to the database.
   let updateDict = (key,value) => {
     var copy = props.getCurrent;
     copy[props.feature] = {"carId": props.cid, "enabled": enabled, "location": locationId, "primaryTag": primaryId,
@@ -125,6 +129,7 @@ export default function Tag(props) {
     copy[props.feature][key] = value;
     props.update(copy);
   };
+  // change the state of the slider
   const handleChange = event => {
     var temp = !enabled;
     setEnabled(temp);
@@ -151,6 +156,7 @@ export default function Tag(props) {
     setLocationId(opt);
     updateDict("location", opt);
   }
+  // loads the values from the database so that user can see the current ARTag settings.
   if (value)
   {
     if (props.info != null)

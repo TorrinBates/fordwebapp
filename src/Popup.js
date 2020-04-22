@@ -39,7 +39,7 @@ function ImageDialog(props) {
 
   return (
     <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
-      <img src={img} className={classes.img} height="600" width="552"/>
+      <img src={img} className={classes.img} height="600" width="552" alt="Pop-up help"/>
     </Dialog>
   );
 }
@@ -50,6 +50,9 @@ ImageDialog.propTypes = {
   img: PropTypes.string.isRequired,
 };
 
+/*
+Handles the opening and closing of the help dialog
+*/
 export default function HelpPopup(props) {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
@@ -67,7 +70,7 @@ export default function HelpPopup(props) {
             <IconButton onClick={handleClickOpen} className={classes.button}>
                 <HelpOutlineIcon fontSize="large" className={classes.help}/>
             </IconButton>
-            <ImageDialog img={props.help} open={open} onClose={handleClose} />
+            <ImageDialog img={props.help} open={open} onClose={handleClose}/>
         </div>
     );
 }

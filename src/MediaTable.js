@@ -53,9 +53,14 @@ const useStyles = makeStyles({
   hover: {}
 });
 
+/*
+Table component that displays all the media associated with the carid that is passed in.
+*/
 export default function MediaTable(props) {
   const classes = useStyles();
   const [value, setValue] = useState(true);
+
+  // Fetches from the API to get all of the media belonging to this car.
   let gettable = async event => {
     try {
       let response = await fetch('https://pmd374kj6j.execute-api.us-east-2.amazonaws.com/prod/car/media?tagnames=true&carid='+props.carid.toString());
@@ -71,6 +76,8 @@ export default function MediaTable(props) {
       alert(error.message);
     }
   }
+
+  // Calls to the API and deletes the media with the passed in id from the database.
   let deleteMedia = (id) => {
     Auth.currentSession().then(async res=>{
       let idToken = res.getIdToken();
@@ -91,6 +98,7 @@ export default function MediaTable(props) {
       });
     })
   }
+  // Returns no media component or div conditionally
   function EmptyMedia() {
     if (rows.length === 0) {
       return <NoMedia/>;

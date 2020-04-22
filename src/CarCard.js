@@ -60,6 +60,9 @@ const dashStyles = makeStyles(theme => ({
     }
 }));
 
+/*
+A component on the Car Details page and this used to label the car and fill space.
+*/
 export default function CarInfo(props) {
   
     const classes = dashStyles();
@@ -69,6 +72,7 @@ export default function CarInfo(props) {
         history.push("/dashboard");
     };
 
+    // deletes the currently selected car and all of its media from the database.
     let DeleteCar = () => {
 
         Auth.currentSession().then(async res=>{

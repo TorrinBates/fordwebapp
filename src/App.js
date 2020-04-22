@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import './App.css';
 import {BrowserRouter as Router} from 'react-router-dom';
 import Routes from "./Routes";
 import { Auth } from 'aws-amplify';
 
+/*
+Paret component.  
+Contains method for handling authentication for the entire app.
+*/
 function App() {
 
   const [isAuthenticating, setIsAuthenticating] = useState(true);
@@ -26,7 +29,7 @@ function App() {
   return (
     !isAuthenticating &&
     <Router>
-      <div className="App">
+      <div>
         <Routes  appProps={{ isAuthenticated, userHasAuthenticated }}/>
       </div>
     </Router>

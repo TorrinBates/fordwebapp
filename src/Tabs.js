@@ -62,6 +62,9 @@ const StyledTab = withStyles({
     },
 })(Tab);
 
+/*
+The tabs (one for each AR location) in the Car Details page that contains all of the AR setting for the current car.
+*/
 export default function ARTabs(props) {
 
   const classes = useStyles();
@@ -70,10 +73,12 @@ export default function ARTabs(props) {
   const [containers, setContainers] = useState({"carsSAR": {}, "carsEAR": {}, "carsIAR": {}, "Steering": [], "Entertainment": [], "Instrument": []});
   const [data, setData] = useState({});
 
+  // switches the tab
   const handleChange = (event, newTab) => {
     setTab(newTab);
   };
 
+  // gets the all the possible AR information and the AR information for this current car so we can build out the ARTag components.
   let getAR = async event => {
     try {
       let response = await fetch('https://pmd374kj6j.execute-api.us-east-2.amazonaws.com/prod/ar-button');
@@ -127,6 +132,7 @@ export default function ARTabs(props) {
     setValue(false);
   }
 
+  // Writes the current AR settings to the database requiring cognito authentication.
   let save = () => {
     var payload = [];
     for (var key of Object.keys(data))

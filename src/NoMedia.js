@@ -28,6 +28,9 @@ const useStyles = makeStyles( theme => ({
     },
   }));
 
+/*
+Component that displays when there is no media for a car
+*/
 export default function Contact() {
     const classes = useStyles();
     return (

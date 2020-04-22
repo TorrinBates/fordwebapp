@@ -42,12 +42,16 @@ function createData(label, value) {
 var primarytags = [];
 var secondarydict = {};
 
+/*
+Page that contains the media listings and the AR taggings for cars.
+*/
 export default function CarInfo(props) {
   
   const classes = dashStyles();
   let history = useHistory();
   const [value, setValue] = useState(true);
 
+  // Gets all the tags for current vehicle
   let gettags = async event => {
     try {
       let response = await fetch('https://pmd374kj6j.execute-api.us-east-2.amazonaws.com/prod/car/tag?carid='+props.location.state.carid.toString());

@@ -38,6 +38,10 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+/*
+This component is used as our sign in page.
+Upon successful login attempt you will be directed to the dashboard
+*/
 export default function SignIn(props) {
   
   const [username, setUsername] = useState("");
@@ -53,6 +57,7 @@ export default function SignIn(props) {
     setPassword(e.target.value);
   };
 
+  //Tries the currently entered credentials and if the pair doesnt exist on cognito it shows and error toast
   let login = async event => {
     event.preventDefault();
 
@@ -64,6 +69,7 @@ export default function SignIn(props) {
     }
   };
   
+  //Handles closing the error toast
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;

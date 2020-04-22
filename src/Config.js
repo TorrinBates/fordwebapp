@@ -1,3 +1,6 @@
+/*
+The credentials to access AWS Cognito
+*/
 export default {
     cognito: {
         REGION: 'us-east-2',

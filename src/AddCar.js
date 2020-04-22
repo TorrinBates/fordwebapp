@@ -39,6 +39,9 @@ const addCarStyles = makeStyles(theme => ({
   },
 }));
 
+/*
+This component makes up our Add Car page.
+*/
 export default function AddCar(props) {
 
   const classes = addCarStyles();
@@ -51,6 +54,7 @@ export default function AddCar(props) {
   const [valid, setValid] = useState({"Make": false, "Model": false, "Year": false});
   let history = useHistory();
 
+  // This method checks if the form is complete after each key stroke or entry
   let checkComplete = (dic) => {
     var key = Object.keys(dic)[0];
     var v = valid;
@@ -91,6 +95,7 @@ export default function AddCar(props) {
   let home = () => {
     history.push("/dashboard");
   };
+  //Uses authentication token to write the current car information to the database via API
   let submit = () => {
     setIsHidden(false);
     Auth.currentSession().then(async res=>{
@@ -120,6 +125,7 @@ export default function AddCar(props) {
       });
     })
   };
+  // Closes the error toast
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;

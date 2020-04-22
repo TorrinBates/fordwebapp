@@ -1,6 +1,9 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 
+/*
+You must be logged in (.isAuthenticated = true) to view these pages otherwise you will be redirected to the login screen.
+*/
 export default function AuthenticatedRoute({ component: C, appProps, ...rest }) {
   return (
     <Route

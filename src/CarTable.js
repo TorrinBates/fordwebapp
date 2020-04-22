@@ -8,8 +8,13 @@ function createData(make, model, year, carid, icon) {
 
 var cars = [];
 
+/*
+Cars Table that is displayed on the dashboard to represent all of the cars contained in the database.
+*/
 export default function CarTable() {
   const [value, setValue] = useState(true);
+
+  //  Gets all the cars currently supported from the database
   let gettable = async event => {
     try {
       let response = await fetch('https://pmd374kj6j.execute-api.us-east-2.amazonaws.com/prod/car?platform=web');
